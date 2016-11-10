@@ -95,7 +95,7 @@ $(document).ready(function()
 				arr.forEach(function(item, i, arr) 
 				{
 					var arr_2 = item.split('<-id->');
-				    $('<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "' + arr_2[1] + '" style = "background: #e3f1ed; display: none;" />').appendTo($("#ChatRooms_Spisok"));
+				    $('<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "' + arr_2[1] + '" style = "background: #e3f1ed; display: none;" />').appendTo($("#ChatRooms_List"));
 				    $("input[class = 'ChatRoomsButton']").slideDown(500);	
 				});	
 				$("div[id='download']").slideUp(300);
