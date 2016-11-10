@@ -51,12 +51,13 @@ switch ($type)
         try 
         {  
             $query = 'CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
+            id SERIAL,
             firstname TEXT NOT NULL,
             secondname TEXT NOT NULL,
             login TEXT NOT NULL,
             password TEXT NOT NULL)';
             $result = pg_query($query) or die(pg_last_error());
+            echo "SUCCESS";
         } 
         catch (Exception $e) 
         {
@@ -74,7 +75,7 @@ switch ($type)
         }
         else 
         {
-            echo "ERROR:<-msg->No value <name> or <last name> or <login> or <password>.";
+            echo "ERROR:<-msg->No value <-name-> or <-last name-> or <-login-> or <-password->.";
         }
     } break;
         
@@ -93,17 +94,17 @@ switch ($type)
                 }
                 else
                 {
-                    echo "ERROR:<-msg->Incorrect <password>.";
+                    echo "ERROR:<-msg->Incorrect <-password->.";
                 }
             }
             else
             {
-                echo "ERROR:<-msg->Incorrect <login>.";
+                echo "ERROR:<-msg->Incorrect <-login->.";
             }
         }
         else 
         {
-            echo "ERROR:<-msg->No value <login> or <password>.";
+            echo "ERROR:<-msg->No value <-login-> or <-password->.";
         }
     } break;
     
