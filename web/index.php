@@ -61,7 +61,7 @@ switch ($type)
         } 
         catch (Exception $e) 
         {
-            echo "ERROR: Database are not created.";
+            echo "ERROR:<-msg->Database are not created.";
         }    
     } break; 
     
@@ -75,7 +75,7 @@ switch ($type)
         }
         else 
         {
-            echo "ERROR:<-msg->No value <-name-> or <-last name-> or <-login-> or <-password->.";
+            echo "ERROR:<-msg->No value name or last name or login or password.";
         }
     } break;
         
@@ -90,27 +90,27 @@ switch ($type)
                 $line = pg_fetch_array($result, null, PGSQL_ASSOC);
                 if($line["password"] == $password)
                 {
-                    echo "SUCCESS";
+                    echo "SUCCESS " . $line["id"];
                 }
                 else
                 {
-                    echo "ERROR:<-msg->Incorrect <-password->.";
+                    echo "ERROR:<-msg->Incorrect password.";
                 }
             }
             else
             {
-                echo "ERROR:<-msg->Incorrect <-login->.";
+                echo "ERROR:<-msg->Incorrect login.";
             }
         }
         else 
         {
-            echo "ERROR:<-msg->No value <-login-> or <-password->.";
+            echo "ERROR:<-msg->No value login or password.";
         }
     } break;
     
     default: 
     {
-        echo "ERROR:<-msg->Unknow comand. ";
+        echo "ERROR:<-msg->Unknow comand.";
     } break;
 }
 pg_free_result($result);
