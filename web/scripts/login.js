@@ -92,9 +92,9 @@ $(document).ready(function()
 			success: function(msg)
 			{
 				var arr = msg.split('<-name->');
-				arr.forEach(function(item, i, arr) 
+				for(var i = 0; i < arr.length - 1; i++)
 				{
-					var arr_2 = item.split('<-id->');
+					var arr_2 = arr[i].split('<-id->');
 				    $('<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "' + arr_2[1] + '" style = "background: #e3f1ed; display: none;" />').appendTo($("#ChatRooms_List"));
 				    $("input[class = 'ChatRoomsButton']").slideDown(500);	
 				});	
