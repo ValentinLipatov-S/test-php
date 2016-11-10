@@ -17,9 +17,8 @@ $(document).ready(function()
 			success: function(msg)
 			{
 				var arr = msg.split('<-msg->');
-				
 				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
-				if(arr[0] === "SUCCESS")
+				if(arr[0] == "SUCCESS")
 				{	
 					$("div[id='Login_Registration']").slideUp(300);
 					$("input[id='Exit']").slideDown(300);
