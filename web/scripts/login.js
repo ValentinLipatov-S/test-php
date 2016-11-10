@@ -2,6 +2,7 @@ $(document).ready(function()
 {	
 	$('#Login').click(function()
 	{			
+		$("div[id='message']").slideUp(300);
 		$("div[id='download']").slideDown(300);
 		$.ajax
 		({
@@ -19,8 +20,10 @@ $(document).ready(function()
 				
 				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
 				if(arr[0] === "SUCCESS")
-				{
-					
+				{	
+					$("div[id='Login_Registration']").slideUp(300);
+					$("input[id='Exit']").slideDown(300);
+					$("div[id='ChatRooms']").slideDown(300);	
 				}
 				$("div[id='message']").slideDown(300);
 				$("div[id='download']").slideUp(300);
@@ -33,6 +36,7 @@ $(document).ready(function()
 	});
 	$('#Registartion').click(function()
 	{
+		$("div[id='message']").slideUp(300); 
 		$("div[id='download']").slideDown(300);
 		$.ajax
 		({
