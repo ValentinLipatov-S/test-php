@@ -204,7 +204,18 @@ switch ($comand)
 	
 	
 	
-	
+	case "chatroom_create": 
+    {
+        if(isset($login) and isset($password) and isset($_GET["chatroom_name"]) and isset($_GET["chatroom_password"]))
+        {
+            if(GetPerson() == true)
+			{
+				$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
+				$result = pg_query($query) or die(pg_last_error());
+				echo "SUCCESS<-msg->Registered user.";
+			}
+        }
+    } break;
 	
 	
 	
