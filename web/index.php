@@ -6,7 +6,9 @@ $dbconn = pg_connect("
 	password = 0p_EhxRACs9Q2b96sZ5Fs3zK_m
 ")or die('Could not connect: ' . pg_last_error());
 
-$type       = $_GET["type"];
+$database_name = "users";
+
+$comand       = $_GET["comand"];
 $firstname  = $_GET['firstname'];
 $secondname = $_GET['secondname'];
 $login      = $_GET['login'];
@@ -21,7 +23,7 @@ function GetPerson()
 {
     if(isset($login) and isset($password))
     {
-        $query = "SELECT * FROM users WHERE login = '$login' LIMIT 1";
+        $query = "SELECT * FROM " . $database_name . " WHERE login = '$login' LIMIT 1";
         $result = pg_query($query) or die(pg_last_error());
         if(pg_num_rows($result) > 0)
         {
@@ -44,18 +46,18 @@ function GetPerson()
         }
     }
 }
-switch ($type)
+switch ($comand)
 {
     case "create_database": 
     {
         try 
         {  
-            $query = 'CREATE TABLE users (
+            $query = "CREATE TABLE " . $database_name . " (
             id SERIAL,
             firstname TEXT NOT NULL,
             secondname TEXT NOT NULL,
             login TEXT NOT NULL,
-            password TEXT NOT NULL)';
+            password TEXT NOT NULL)";
             $result = pg_query($query) or die(pg_last_error());
             echo "SUCCESS";
         } 
@@ -69,7 +71,7 @@ switch ($type)
     {
         if(isset($firstname) and isset($secondname) and isset($login) and isset($password))
         {
-            $query = "INSERT INTO users (firstname, secondname, login, password) VALUES ('$firstname', '$secondname', '$login', '$password')";
+            $query = "INSERT INTO " . $database_name . " (firstname, secondname, login, password) VALUES ('$firstname', '$secondname', '$login', '$password')";
             $result = pg_query($query) or die(pg_last_error());
             echo "SUCCESS";
         }
@@ -83,14 +85,14 @@ switch ($type)
     {
         if(isset($login) and isset($password))
         {
-            $query = "SELECT * FROM users WHERE login = '$login' LIMIT 1";
+            $query = "SELECT * FROM " . $database_name . " WHERE login = '$login' LIMIT 1";
             $result = pg_query($query) or die(pg_last_error());
             if(pg_num_rows($result) > 0)
             {
                 $line = pg_fetch_array($result, null, PGSQL_ASSOC);
                 if($line["password"] == $password)
                 {
-                    echo "SUCCESS " . $line["id"];
+                    echo "SUCCESS";
                 }
                 else
                 {
@@ -108,6 +110,22 @@ switch ($type)
         }
     } break;
     
+    case "show":
+    {
+        $query = "SELECT * FROM " . $database_name;
+        $result = pg_query($query) or die(pg_last_error());
+        echo "<table>\n";
+        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+        {
+            echo "\t<tr>\n";
+            foreach ($line as $col_value) {
+                echo "\t\t<td>$col_value</td>\n";
+            }
+            echo "\t</tr>\n";
+        }
+	    echo "</table>\n";
+    }
+    break;
     default: 
     {
         echo "ERROR:<-msg->Unknow comand.";
