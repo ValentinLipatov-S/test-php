@@ -8,17 +8,10 @@ if($_GET["type"] == "create")
 }
 if($_GET["type"] == "get")
 {
-	$query = 'SELECT * FROM users_login';
-	$result = pg_query($query) or die('error: ' . pg_last_error());
-	echo "<table>\n";
-	while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-		echo "\t<tr>\n";
-		foreach ($line as $col_value) {
-			echo "\t\t<td>$col_value</td>\n";
-		}
-		echo "\t</tr>\n";
-	}
-	echo "</table>\n";
+	$query = 'SELECT * FROM users';
+	$result = pg_query($query) or die(pg_last_error());
+    $line = pg_fetch_array($result, null, PGSQL_ASSOC)
+	echo $line["name"];
 }
 if($_GET["type"] == "set")
 {
