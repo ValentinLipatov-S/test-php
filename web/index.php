@@ -9,8 +9,8 @@ if($_GET["type"] == "get")
 {
 	$query = 'SELECT * FROM users';
 	$result = pg_query($query) or die(pg_last_error());
-    	
-	echo "name";
+    	$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+	echo $line["name"];
 }
 pg_free_result($result);
 pg_close($dbconn);
