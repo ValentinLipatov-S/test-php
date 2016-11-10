@@ -68,7 +68,7 @@ switch ($type)
     {
         if(isset($firstname) and isset($secondname) and isset($login) and isset($password))
         {
-            $query = "INSERT INTO users('firstname', 'secondname', 'login', 'password') VALUES ('', '$firstname', '$secondname', '$login', '$password')";
+            $query = "INSERT INTO users VALUES (new_id, '$firstname', '$secondname', '$login', '$password')";
             $result = pg_query($query) or die(pg_last_error());
             echo "SUCCESS";
         }
