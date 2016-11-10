@@ -162,25 +162,21 @@ switch ($comand)
         {
 			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
 			$result = pg_query($query) or die(pg_last_error());
-			echo pg_num_rows($result);
-			if(pg_num_rows($result) > 0)
+			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+			if($line["user_password"] == $_GET["user_password"])
 			{
-				$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-				if($line["user_password"] == $_GET["user_password"])
-				{
-					$person_id         = $line["user_id"];
-					$person_firstname  = $line["user_firstname"];
-					$person_secondname = $line["user_secondname"];
+				$person_id         = $line["user_id"];
+				$person_firstname  = $line["user_firstname"];
+				$person_secondname = $line["user_secondname"];
 					
-					$text = "";
-					$query = "SELECT * FROM " . $database_name_chatrooms . " WHERE user_id = " . $person_id;
-					$result = pg_query($query) or die(pg_last_error());
-					while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-					{
-						$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-name->";
-					}
-					echo $text;	
+				$text = "";
+				$query = "SELECT * FROM " . $database_name_chatrooms . " WHERE user_id = " . $person_id;
+				$result = pg_query($query) or die(pg_last_error());
+				while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+				{
+					$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-name->";
 				}
+				echo $text;	
 			}
         }
     } break;
