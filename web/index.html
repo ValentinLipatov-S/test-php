@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src = "jquery-3.1.1.js" ></script>
+		<script src = "script.js" ></script>
+	</head>
+	<body>
+		<!--панель оповещений-->
+		<div id = "msg"><p id = "p_msg"></p></div>
+		<!--Панель выхода-->
+		<input class = "Button" id = "Exit"  type = "submit" value = "Exit" style = "background: #4d5369; font-weight: bold; color: white;"/>
+		<!--Панель входа-->
+		<div id = "Login_Reg">
+			<div id = "Button">
+				<input class = "Button" id = "Slim"  type = "submit" value = "Login" style = "background: #e3f1ed;"/>
+				<div id = "Child">
+					<input class = "Text" id = "Login_Login" type = "text" placeholder = "Login" />
+					<br>
+					<input class = "Text" id = "Login_Password" type = "password" placeholder = "Password" />
+					<br>
+					<input id = "Login" class = "Button" type = "submit" value = "Connect" style = "background: #f07797;"/>
+				</div>
+			</div>
+			<!--панель регистрации-->
+			<div id = "Button">
+			<input class = "Button"  id = "Slim" type = "submit" value = "Registartion" style = "background: #f5e5bc;"/>
+				<div id = "Child">
+					<input class = "Text" id = "Registartion_Login" type = "text" placeholder = "Login" />
+					<br>
+					<input class = "Text" id = "Registartion_Password" type = "password" placeholder = "Password" />
+					<br>
+					<input class = "Text" id = "Registartion_Name" type = "text" placeholder = "Name" />
+					<br>
+					<input class = "Text" id = "Registartion_Surname" type = "text" placeholder = "Last name" />
+					<br>
+					<input id = "Registartion" class = "Button" type = "submit" value = "Registartion" style = "background: #a3bbbb;"/>
+				</div>
+			</div>
+		</div>
+		<div id = "download_chat" style = "text-align: center; display: none;">
+			<img src = "10.gif" />
+		</div>
+	</body>
+</html>
