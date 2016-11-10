@@ -8,14 +8,14 @@
 		<script src = "scripts/login.js"></script>
 	</head>
 	<body>
-		<!--панель оповещений-->
+		<!--РїР°РЅРµР»СЊ РѕРїРѕРІРµС‰РµРЅРёР№-->
 		<div id = "message" style = "display: none;"><p id = "p_message"></p></div>
 		<div id = "download" style = "text-align: center; display: none; background: white;">
 			<img src = "images/download.gif"/>
 		</div>
-		<!--панель выхода-->
+		<!--РїР°РЅРµР»СЊ РІС‹С…РѕРґР°-->
 		<input class = "Button" id = "Exit"  type = "submit" value = "Exit" style = "background: #4d5369; font-weight: bold; color: white; display: none;"/>
-		<!--панель входа-->
+		<!--РїР°РЅРµР»СЊ РІС…РѕРґР°-->
 		<div id = "Login_Registration">
 			<div id = "Button">
 				<input class = "Button" id = "Slim"  type = "submit" value = "Login" style = "background: #e3f1ed;"/>
@@ -27,7 +27,7 @@
 					<input id = "Login" class = "Button" type = "submit" value = "Connect" style = "background: #f07797;"/>
 				</div>
 			</div>
-			<!--панель регистрации-->
+			<!--РїР°РЅРµР»СЊ СЂРµРіРёСЃС‚СЂР°С†РёРё-->
 			<div id = "Button">
 			<input class = "Button"  id = "Slim" type = "submit" value = "Registartion" style = "background: #f5e5bc;"/>
 				<div id = "Child" style = "background: white; display: none;">
@@ -43,5 +43,21 @@
 				</div>
 			</div>	
 		</div>
+		
+		<input id = "Back_To_Chat_Rooms" class = "Button" type = "submit" value = "Chat Rooms" style = "background: #a3bbbb; display: none;"/>
+		
+		<div id = "ChatRooms" style = "display: none;">
+			<div id = "Button" style = "width: 100%;">
+				<input id = "Slim" class = "Button" type = "submit" value = "Create Chat Room" style = "background: #f5e5bc;"/>
+				<div id = "Child">
+					<input class = "Text" id = "ChatRoom_Name" type = "text" placeholder = "Name" style = "background: white; width: 50%; display:inline-block;  margin-right: -5px;"/>
+					<input id = "ChatRoom_Create" class = "Button" type = "submit" value = "Create" style = "width: 50%; display:inline-block; background: #f07797;"/>
+				</div>
+			</div>		
+			<div id = "ChatRooms_Spisok">	
+			</div>
+		</div>
+		
+		
 	</body>
 </html>
