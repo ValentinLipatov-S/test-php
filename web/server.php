@@ -194,18 +194,15 @@ switch ($comand)
         {
 			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
 			$result = pg_query($query) or die(pg_last_error());
-			if(pg_num_rows($result) > 0)
+			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+			if($line["user_password"] == $_GET["user_password"])
 			{
-				$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-				if($line["user_password"] == $_GET["user_password"])
-				{
-					$person_id         = $line["user_id"];
-					$person_firstname  = $line["user_firstname"];
-					$person_secondname = $line["user_secondname"];
-					$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
-					$result = pg_query($query) or die(pg_last_error());
-					echo "SUCCESS";
-				}
+				$person_id         = $line["user_id"];
+				$person_firstname  = $line["user_firstname"];
+				$person_secondname = $line["user_secondname"];
+				$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
+				$result = pg_query($query) or die(pg_last_error());
+				echo "SUCCESS";
 			}
         }
     } break;
