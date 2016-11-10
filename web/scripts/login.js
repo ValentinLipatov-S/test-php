@@ -9,8 +9,8 @@ $(document).ready(function()
 			url:  "server.php",
 			data: 
 			{
-				comand:   "autorization", 
-				user_login: 	  $("#Login_Login").val(), 
+				comand:   	   "autorization", 
+				user_login:    $("#Login_Login").val(), 
 				user_password: $("#Login_Password").val()
 			},
 			success: function(msg)
@@ -40,10 +40,10 @@ $(document).ready(function()
 			url:  "server.php",
 			data: 
 			{
-				comand:   	  "registration", 
-				user_login: 	 	  $("#Login_Login").val(), 
-				user_password: 	  $("#Login_Password").val(),
-				user_firstname: 	  $("#Registartion_Name").val(), 
+				comand:   	       "registration", 
+				user_login: 	   $("#Registartion_Login").val(), 
+				user_password: 	   $("#Registartion_Password").val(),
+				user_firstname:    $("#Registartion_Name").val(), 
 				user_secondname:   $("#Registartion_Surname").val()
 			},
 			success: function(msg)
