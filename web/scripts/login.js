@@ -10,8 +10,8 @@ $(document).ready(function()
 			data: 
 			{
 				comand:   "autorization", 
-				login: 	  $("#Login_Login").val(), 
-				password: $("#Login_Password").val()
+				user_login: 	  $("#Login_Login").val(), 
+				user_password: $("#Login_Password").val()
 			},
 			success: function(msg)
 			{
@@ -23,10 +23,10 @@ $(document).ready(function()
 					
 				}
 				$("div[id='message']").slideDown(300);
+				$("div[id='download']").slideUp(300);
 				setTimeout(function() 
 				{
 					$("div[id='message']").slideUp(300);	
-					$("div[id='download']").slideUp(300);
 				}, 3000);
 			}					 
 		});			
@@ -41,10 +41,10 @@ $(document).ready(function()
 			data: 
 			{
 				comand:   	  "registration", 
-				login: 	 	  $("#Login_Login").val(), 
-				password: 	  $("#Login_Password").val(),
-				firstname: 	  $("#Registartion_Name").val(), 
-				secondname:   $("#Registartion_Surname").val()
+				user_login: 	 	  $("#Login_Login").val(), 
+				user_password: 	  $("#Login_Password").val(),
+				user_firstname: 	  $("#Registartion_Name").val(), 
+				user_secondname:   $("#Registartion_Surname").val()
 			},
 			success: function(msg)
 			{
@@ -52,10 +52,10 @@ $(document).ready(function()
 				
 				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
 				$("div[id='message']").slideDown(300);
+				$("div[id='download']").slideUp(300);
 				setTimeout(function() 
 				{
 					$("div[id='message']").slideUp(300);	
-					$("div[id='download']").slideUp(300);
 				}, 3000);
 			}					 
 		});			
