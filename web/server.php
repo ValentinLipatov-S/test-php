@@ -23,33 +23,29 @@ $person_secondname;
 
 function GetPerson()
 {
-	echo "z1z";
-    if(isset($login) and isset($password))
+	$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
+	$result = pg_query($query) or die(pg_last_error());
+	echo pg_num_rows($result);
+	if(pg_num_rows($result) > 0)
+	{
+		$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+		if($line["user_password"] == $password)
+		{
+			$person_id         = $line["user_id"];
+			$person_firstname  = $line["user_firstname"];
+			$person_secondname = $line["user_secondname"];
+			return true;  
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
     {
-		echo "z2z";
-        $query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
-        $result = pg_query($query) or die(pg_last_error());
-		echo pg_num_rows($result);
-        if(pg_num_rows($result) > 0)
-        {
-            $line = pg_fetch_array($result, null, PGSQL_ASSOC);
-            if($line["user_password"] == $password)
-            {
-                $person_id         = $line["user_id"];
-                $person_firstname  = $line["user_firstname"];
-                $person_secondname = $line["user_secondname"];
-                return true;  
-            }
-            else
-            {
-                 return false;
-            }
-        }
-        else
-        {
-             return false;
-        }
+        return false;
     }
+    
 }
 switch ($comand)
 {
@@ -217,7 +213,6 @@ switch ($comand)
 				$result = pg_query($query) or die(pg_last_error());
 				echo "SUCCESS";
 			}
-			echo "1SUCCESS";
         }
     } break;
 	
