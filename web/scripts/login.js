@@ -100,7 +100,37 @@ $(document).ready(function()
 				});	
 				$("div[id='download']").slideUp(300);
 			}
-		});		
-		
+		});			
 	}
+	
+	
+	
+	
+	$('#ChatRoom_Create').click(function()
+	{
+		if($("#ChatRoom_Name").val() != "")
+		{
+			$("div[id='download']").slideDown(300);
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'chatroom_create', 
+					chatroom_name: $("#ChatRoom_Name").val(),
+					user_login: login,
+					user_password: password,
+					chatroom_password: 12345
+				},
+				success: function(msg)
+				{
+					$("div[id='download']").slideUp(300);
+					$("#ChatRoom_Name").val("");
+					AddChatRooms();
+				}					 
+			});
+		}
+	});	
+	
 });
