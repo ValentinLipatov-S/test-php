@@ -212,8 +212,9 @@ switch ($comand)
 			{
 				$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
 				$result = pg_query($query) or die(pg_last_error());
-				echo "SUCCESS<-msg->Registered user.";
+				echo "SUCCESS";
 			}
+			echo "1SUCCESS";
         }
     } break;
 	
