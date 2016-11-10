@@ -22,7 +22,7 @@ if($_GET["type"] == "get")
 }
 if($_GET["type"] == "set")
 {
-	$query = "INSERT VALUES('$_GET[name]')";
+	$query = "INSERT INTO users ('name') VALUES('$_GET[name]')";
 	$result = pg_query($query) or die('error: ' . pg_last_error());
 	echo "execute";
 }
