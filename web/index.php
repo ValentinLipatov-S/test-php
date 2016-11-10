@@ -1,5 +1,5 @@
 <?php
-$dbconn = pg_connect("host=ec2-54-75-233-142.eu-west-1.compute.amazonaws.com dbname=d49ap8m67d6okt user=gjowfbdepubgzi password=EMRp_nMC4f46cvcYTCm3Lr_jcs")or die('Could not connect: ' . pg_last_error());
+$dbconn = pg_connect("host=ec2-54-75-228-85.eu-west-1.compute.amazonaws.com dbname=ddrgbsg3qokpc2 user=kbpivkrmvdkauu password=0p_EhxRACs9Q2b96sZ5Fs3zK_m")or die('Could not connect: ' . pg_last_error());
 if($_GET["type"] == "create")
 {
 	$query = 'CREATE TABLE users (name TEXT)';
