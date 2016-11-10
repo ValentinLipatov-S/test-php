@@ -38,7 +38,7 @@ $(document).ready(function()
 			url:  "server.php",
 			data: 
 			{
-				type:     "autorization", 
+				comand:     "autorization", 
 				login: 	  $("#Login_Login").val(), 
 				password: $("#Login_Password").val()
 			},
