@@ -23,8 +23,10 @@ $person_secondname;
 
 function GetPerson()
 {
+	echo "z1z";
     if(isset($login) and isset($password))
     {
+		echo "z2z";
         $query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
         $result = pg_query($query) or die(pg_last_error());
 		echo pg_num_rows($result);
