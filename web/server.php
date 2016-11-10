@@ -194,7 +194,6 @@ switch ($comand)
         {
 			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
 			$result = pg_query($query) or die(pg_last_error());
-			echo pg_num_rows($result);
 			if(pg_num_rows($result) > 0)
 			{
 				$line = pg_fetch_array($result, null, PGSQL_ASSOC);
