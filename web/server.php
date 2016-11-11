@@ -25,7 +25,7 @@ function Person($log, $pas)
 {
 	if($log != "" and $pas != "")
 	{
-		$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$log' LIMIT 1";
+		$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$log'";
 		$result = pg_query($query) or die(pg_last_error());
 		if(pg_num_rows($result) > 0)
 		{
