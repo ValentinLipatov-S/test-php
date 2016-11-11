@@ -102,21 +102,6 @@ switch ($comand)
         }    
     } break;
     
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//Login_Registration
     case "registration": 
     {
