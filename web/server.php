@@ -191,8 +191,11 @@ switch ($_GET["comand"])
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS";
 					}
+					echo "1";
 				}
+				echo "2";
 			}
+			echo "3";
         }
 	}break;
 	
