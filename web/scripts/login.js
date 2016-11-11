@@ -143,11 +143,43 @@ $(document).ready(function()
 			});
 		}
 	});	
+	 
+	$('#Exit_Button').click(function()
+	{
+		clearInterval(Timer);
+		$("#Post_Area").empty();
+		$("#chatroom_append").empty();
+		$("div[id='Autorization']").slideDown(300);
+		$("div[id='Profile']").slideUp(300);
+		$("div[id='ChatRooms']").slideUp(300);
+		$("div[id='Chat']").slideUp(300);
+		$("input[id='Exit_Button']").slideUp(300);
+		$("input[id='Chatmenu_Button']").slideUp(300);
+		$("input[id='Update']").slideUp(300);
+		login = "" ;
+		password = ""; 
+		chatroom_id = "";
+	});
+	
+	$('#Chatmenu_Button').click(function()
+	{
+		clearInterval(Timer);
+		$("#Post_Area").empty();
+		$("#chatroom_append").empty();
+		$("div[id='Autorization']").slideUp(300);
+		$("div[id='Profile']").slideUp(300);
+		$("div[id='ChatRooms']").slideDown(300);
+		$("div[id='Chat']").slideUp(300);
+		$("input[id='Exit_Button']").slideDown(300);
+		$("input[id='Chatmenu_Button']").slideUp(300);
+		$("input[id='Update']").slideUp(300);
+	});
+	
 	
 	var Max_Post = -1;
 	var Min_Post =  0;
 	var Post = -1;
-	
+
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
 		clearInterval(Timer);
