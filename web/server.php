@@ -149,7 +149,7 @@ switch ($comand)
     {
         if(isset($login) and isset($password))
         {
-			if($firstname != "" and $secondname != "" and $login != "" and $password != "")
+			if($login != "" and $password != "")
 			{
 				$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
@@ -172,7 +172,7 @@ switch ($comand)
 			}
 			else
 			{
-				echo "ERROR<-msg->No value name or last name or login or password.";
+				echo "ERROR<-msg->No value login or password.";
 			}
         }
         else 
