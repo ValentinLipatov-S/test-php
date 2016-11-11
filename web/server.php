@@ -8,7 +8,7 @@ $dbconn = pg_connect("
 
 switch ($_GET["comand"])
 {
-    case "create_database_users": 
+    case "create_database": 
     {
         try 
         {  
@@ -113,6 +113,36 @@ switch ($_GET["comand"])
         else 
         {
             echo "ERROR<-msg->No value login or password.";
+        }
+    } break;
+	
+	case "chatrooms_search": 
+    {
+        if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatrooms_search_text"]))
+        {	
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			{
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $_GET["user_password"])
+					{
+						$person_id         = $line["user_id"];
+						$person_firstname  = $line["user_firstname"];
+						$person_secondname = $line["user_secondname"];		
+						$text = "";
+						$query = "SELECT * FROM chatrooms WHERE chatroom_name = '$_GET[chatrooms_search_text]'";
+						$result = pg_query($query) or die(pg_last_error());
+						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+						{
+							$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-name->";
+						}
+						echo $text;		
+					}
+				}
+			}
         }
     } break;
 	
