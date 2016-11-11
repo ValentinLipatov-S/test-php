@@ -218,7 +218,7 @@ switch ($_GET["comand"])
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						$msg_text = $line['message_text'];
 						
-						$query = "SELECT * FROM users WHERE user_id = '" . $line['user_id'] . "]' LIMIT 1";
+						$query = "SELECT * FROM users WHERE user_id = '" . $line['user_id'] . "' LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						
