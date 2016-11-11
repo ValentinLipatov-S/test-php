@@ -51,7 +51,7 @@ switch ($_GET["comand"])
 			{
 				if(strlen($_GET['user_firstname']) > 2 and strlen($_GET['user_secondname']) > 2 and strlen($_GET['user_login']) > 5 and strlen($_GET['user_password']) > 5 and strlen($_GET['user_firstname']) < 21 and strlen($_GET['user_secondname']) < 21 and strlen($_GET['user_login']) < 31 and strlen($_GET['user_password']) < 31)
 				{
-					$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
+					$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
 					$result = pg_query($query) or die(pg_last_error());
 					if(pg_num_rows($result) == 0)
 					{
@@ -86,7 +86,7 @@ switch ($_GET["comand"])
         {
 			if($_GET['user_login'] != "" and $_GET['user_password'] != "")
 			{
-				$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
 				if(pg_num_rows($result) > 0)
 				{
