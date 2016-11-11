@@ -414,11 +414,45 @@ $(document).ready(function()
 	
 	
 	
+	$('#Login_Login').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Login').click();
+	});
+	$('#Login_Password').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Login').click();
+	});
+	$('#Registartion_Login').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Registartion').click();
+	});
+	$('#Registartion_Password').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Registartion').click();
+	});
+	$('#Registartion_Name').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Registartion').click();
+	});
+	$('#Registartion_Surname').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Registartion').click();
+	});
+	$('#Post_Text').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Post_Send').click();
+	});
+	$('#Chatroom_name').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Chatroom_create').click();
+	});
+	$('#Search_text').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Search').click();
+	});
+	  
 	
-	
-	
-	
-	
+	 
 	
 	
 	
