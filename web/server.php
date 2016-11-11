@@ -250,7 +250,8 @@ switch ($_GET["comand"])
 						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						echo $line['message_id'];
+						if($line['message_id'] == "")echo 0;
+						else echo $line['message_id'];
 					}
 				}
 			}
@@ -278,7 +279,8 @@ switch ($_GET["comand"])
 						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id DESC LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						echo $line['message_id'];
+						if($line['message_id'] == "")echo 0;
+						else echo $line['message_id'];
 					}
 				}
 			}
