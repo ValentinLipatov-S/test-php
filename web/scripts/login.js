@@ -144,6 +144,46 @@ $(document).ready(function()
 		}
 	});	
 	 
+	 $('#Search').click(function()
+	{
+		$("div[id='ChatRooms']").slideDown(300);
+		$("div[id='download_chatroom']").slideDown(300);
+		$("#chatroom_append").empty();
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'chatrooms_search', 
+				user_login: login,
+				user_password: password,
+				chatrooms_search_text: $("#Search_text").val();
+			},
+			success: function(msg)
+			{
+				console.log(msg);
+				var arr = msg.split('<-name->');		
+				for(var i = 0; i < arr.length - 1; i++)
+				{
+					var arr_2 = arr[i].split('<-id->');
+					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
+					'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+					'</div>').appendTo($("#chatroom_append"));
+				    setTimeout(function() 
+					{
+						$("div[id = 'chat']").slideDown(300);		
+					}, 100); 
+				}	
+				$("div[id='download_chatroom']").slideUp(300);
+			}
+		});	
+	});
+	
+	
+	
 	$('#Exit_Button').click(function()
 	{
 		clearInterval(Timer);	
