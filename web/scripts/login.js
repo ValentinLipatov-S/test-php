@@ -176,6 +176,8 @@ $(document).ready(function()
 			},
 			success: function(msg) 
 			{ 
+				console.log(msg);
+				alert(msg);
 				Max_Post = msg;
 				Post = Max_Post;
 				$.ajax
@@ -192,7 +194,7 @@ $(document).ready(function()
 					success: function(msg) 
 					{ 
 						console.log(msg);
-					
+						alert(msg);
 						Min_Post = msg;
 						Message_Timer();
 						
