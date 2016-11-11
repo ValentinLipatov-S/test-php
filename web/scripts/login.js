@@ -19,6 +19,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
+				console.log(msg);
 				var arr = msg.split('<-msg->');
 				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
 				if(arr[0] == "SUCCESS")
@@ -59,6 +60,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
+				console.log(msg);
 				var arr = msg.split('<-msg->');
 				
 				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
@@ -91,6 +93,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
+				console.log(msg);
 				var arr = msg.split('<-name->');
 				for(var i = 0; i < arr.length - 1; i++)
 				{
@@ -125,6 +128,7 @@ $(document).ready(function()
 				},
 				success: function(msg)
 				{
+					console.log(msg);
 					$("div[id='download']").slideUp(300);
 					$("#ChatRoom_Name").val("");
 					AddChatRooms();
