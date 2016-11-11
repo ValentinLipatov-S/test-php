@@ -133,7 +133,7 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];		
 						$text = "";
-						$query = "SELECT * FROM chatrooms WHERE user_id = '$line[user_id]'";
+						$query = "SELECT * FROM chatrooms";
 						$result = pg_query($query) or die(pg_last_error());
 						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
 						{
