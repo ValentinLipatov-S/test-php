@@ -173,6 +173,7 @@ $(document).ready(function()
 		$("input[id='Exit_Button']").slideDown(300);
 		$("input[id='Chatmenu_Button']").slideUp(300);
 		$("input[id='Update']").slideUp(300);
+		AddChatRooms();
 	});
 	
 	
