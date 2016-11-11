@@ -244,7 +244,7 @@ $(document).ready(function()
 								url: "server.php",
 								data: 
 								{
-									comand: 'get_messange',
+									comand: 'get_message',
 									message_id: Max_Post,
 									chatroom_id: chatroom_id,
 									user_login: login,
@@ -275,7 +275,7 @@ $(document).ready(function()
 				url: "server.php",
 				data: 
 				{
-					comand: 'set_messange', 
+					comand: 'set_message', 
 					message_text: $("#Post_Send_Text").val(),
 					chatroom_id: chatroom_id,
 					user_login: login,
