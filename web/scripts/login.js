@@ -1,6 +1,6 @@
 $(document).ready(function()
 {	
-	var login, password;
+	var login, password, chatroom_id;
 	$('#Login').click(function()
 	{			
 		$("div[id='message']").slideUp(300);
@@ -103,7 +103,7 @@ $(document).ready(function()
 					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
 					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
 					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
-					'<input id = "' + arr_2[1] + '" class = "Button" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+					'<input id = "' + arr_2[1] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
 					'</div>').appendTo($("#chatroom_append"));
 				    setTimeout(function() 
 					{
@@ -145,5 +145,34 @@ $(document).ready(function()
 			});
 		}
 	});	
+	
+	
+	
+	
+	
+	$('body').on('click', '.ChatRoomsButton', function()
+	{
+		$("div[id='download_chatroom']").slideDown(300);
+		$("#Post_Area").empty();
+		$("#chatroom_append").empty();
+		$("input[id='Update']").slideDown(300);
+		chatroom_id = $(this).attr("id");
+       alert(chatroom_id);
+	});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 });
