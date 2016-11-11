@@ -21,6 +21,29 @@ $person_id;
 $person_firstname;
 $person_secondname;
 
+function Person($log, $pas)
+{
+	if($log != "" and $pas != "")
+	{
+		$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$log' LIMIT 1";
+		$result = pg_query($query) or die(pg_last_error());
+		if(pg_num_rows($result) > 0)
+		{
+			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+			if($line["user_password"] == $pas)
+			{
+				$person_id         = $line["user_id"];
+				$person_firstname  = $line["user_firstname"];
+				$person_secondname = $line["user_secondname"];		
+				return true;				
+			}
+			return false;
+		}
+		return false;
+	}
+	return false;
+}
+	
 switch ($comand)
 {
 	// Create DataBases
@@ -183,24 +206,7 @@ switch ($comand)
 	
 	
 	
-	function Person($log, $pas)
-	{
-		if($log != "" and $pas != "")
-		{
-			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$log' LIMIT 1";
-			$result = pg_query($query) or die(pg_last_error());
-			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-			if($line["user_password"] == $pas)
-			{
-				$person_id         = $line["user_id"];
-				$person_firstname  = $line["user_firstname"];
-				$person_secondname = $line["user_secondname"];		
-				return true;				
-			}
-			return false;
-		}
-		return false;
-	}
+	
 	
 	
 	case "chatrooms": 
