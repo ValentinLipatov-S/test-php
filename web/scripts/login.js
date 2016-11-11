@@ -438,7 +438,7 @@ $(document).ready(function()
 	{
 		if (e.which == 13) $('#Registartion').click();
 	});
-	$('#Post_Text').keydown(function (e) 
+	$('#Post_Send_Text').keydown(function (e) 
 	{
 		if (e.which == 13) $('#Post_Send').click();
 	});
