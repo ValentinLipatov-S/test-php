@@ -83,6 +83,14 @@ p
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+.ChatRoomsButton_NoClick
+{
+	cursor: pointer;
+	width: 100%;
+	border: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 #Post_Text
 {
 	//border-top: 1px solid #dfe2e8;
