@@ -153,7 +153,7 @@ $(document).ready(function()
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
 		$("div[id='Autorization']").slideUp(300);
-		$("div[id='Profile']").slideDown(300);
+		$("div[id='Profile']").slideUp(300);
 		$("div[id='ChatRooms']").slideUp(300);
 		$("div[id='Chat']").slideDown(300);
 		$("input[id='Exit_Button']").slideDown(300);
@@ -198,7 +198,7 @@ $(document).ready(function()
 						
 						$("div[id='download_chat']").slideUp(300);
 						$("div[id='Autorization']").slideUp(300);
-						$("div[id='Profile']").slideDown(300);
+						$("div[id='Profile']").slideUp(300);
 						$("div[id='ChatRooms']").slideUp(300);
 						$("div[id='Chat']").slideDown(300);
 						$("input[id='Exit_Button']").slideDown(300);
