@@ -195,7 +195,7 @@ $(document).ready(function()
 						console.log(msg);
 						Min_Post = msg;
 						Message_Timer();
-						$("#Update").click();
+						
 						$("div[id='download_chat']").slideUp(300);
 						$("div[id='Autorization']").slideUp(300);
 						$("div[id='Profile']").slideUp(300);
@@ -289,6 +289,7 @@ $(document).ready(function()
 				},
 				success: function(msg)
 				{
+					conosle.log(msg);
 					var arr = msg.split('<:>');
 					if(arr[1] != "" && msg !="")
 					{
