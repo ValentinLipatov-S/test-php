@@ -162,7 +162,8 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-						$query = "INSERT INTO chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('" . $line['user_id'] . "', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
+						$val = $line['user_id'];
+						$query = "INSERT INTO chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('$val', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS";
 					}
@@ -187,7 +188,9 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-						$query = "INSERT INTO messages (user_id, chatroom_id, message_text) VALUES ('" . $line['user_id'] . "', '$_GET[chatroom_id]', '$_GET[message_text]')";
+						
+						$val = $line['user_id'];
+						$query = "INSERT INTO messages (user_id, chatroom_id, message_text) VALUES ('$val', '$_GET[chatroom_id]', '$_GET[message_text]')";
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS";
 					}
@@ -218,10 +221,10 @@ switch ($_GET["comand"])
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						$msg_text = $line['message_text'];
 						
-						$query = "SELECT * FROM users WHERE user_id = '" . $line['user_id'] . "]' LIMIT 1";
+						$val = $line['user_id'];
+						$query = "SELECT * FROM users WHERE user_id = '$val' LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						
 						echo $line['user_firstname'] . ' ' . $line['user_secondname'] . '<:>' . $msg_text;
 					}
 				}
