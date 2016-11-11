@@ -265,7 +265,7 @@ $(document).ready(function()
 	
 	$('#Post_Send').click(function()
 	{
-		if($("#Post_Text").val() != "")
+		if($("#Post_Send_Text").val() != "")
 		{
 			$.ajax
 			({
@@ -274,7 +274,7 @@ $(document).ready(function()
 				data: 
 				{
 					comand: 'set_messange', 
-					message_text: $("#Post_Text").val(),
+					message_text: $("#Post_Send_Text").val(),
 					chatroom_id: chatroom_id,
 					user_login: login,
 					user_password: password
@@ -282,19 +282,10 @@ $(document).ready(function()
 				success: function(msg)
 				{
 					console.log(msg);
-					$("#Post_Text").val("");
+					$("#Post_Send_Text").val("");
 				}					 
 			});
 		}
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 });
