@@ -101,14 +101,7 @@ switch ($comand)
         {
 			if($firstname != "" and $secondname != "" and $login != "" and $password != "")
 			{
-				if(strlen($firstname) > 2 and 
-				strlen($secondname) > 2 and 
-				strlen($login) > 5 and 
-				strlen($password) > 5 and 
-				strlen($firstname) < 21 
-				and strlen($secondname) < 21 
-				and strlen($login) < 31 
-				and strlen($password) < 31)
+				if(strlen($firstname) > 2 and strlen($secondname) > 2 and strlen($login) > 5 and strlen($password) > 5 and strlen($firstname) < 21 and strlen($secondname) < 21 and strlen($login) < 31 and strlen($password) < 31)
 				{
 					$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
 					$result = pg_query($query) or die(pg_last_error());
