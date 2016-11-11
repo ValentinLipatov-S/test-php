@@ -171,7 +171,7 @@ switch ($_GET["comand"])
         }
     } break;
 	
-	case "set_messange":
+	case "set_message":
 	{
 		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_text"]))
         {
