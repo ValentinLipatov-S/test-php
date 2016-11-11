@@ -247,7 +247,7 @@ switch ($_GET["comand"])
 						$person_secondname = $line["user_secondname"];	
 					
 
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY id LIMIT 1";
+						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						echo $line['message_id'];
@@ -275,7 +275,7 @@ switch ($_GET["comand"])
 						$person_secondname = $line["user_secondname"];	
 					
 
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY id DESC LIMIT 1";
+						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id DESC LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						echo $line['message_id'];
