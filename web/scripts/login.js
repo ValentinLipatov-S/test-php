@@ -252,7 +252,7 @@ $(document).ready(function()
 								{	
 									console.log(msg);
 									var arr = msg.split('<:>');
-									if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = ""><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
+									if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
 									$("div[id = 'Post']").slideDown(300);
 								}
 							});	
@@ -292,7 +292,7 @@ $(document).ready(function()
 					var arr = msg.split('<:>');
 					if(arr[1] != "" && msg !="")
 					{
-						$('<div id = "Post" style = ""><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
+						$('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
 						$("div[id = 'Post']").slideDown(300);	
 						Start--;
 					}
