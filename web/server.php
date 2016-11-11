@@ -183,22 +183,33 @@ switch ($comand)
 	
 	
 	
-	
+	function Person($log, $pas)
+	{
+		if($log != "" and $pas != "")
+		{
+			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$log' LIMIT 1";
+			$result = pg_query($query) or die(pg_last_error());
+			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+			if($line["user_password"] == $pas)
+			{
+				$person_id         = $line["user_id"];
+				$person_firstname  = $line["user_firstname"];
+				$person_secondname = $line["user_secondname"];		
+				return true;				
+			}
+			return false;
+		}
+		return false;
+	}
 	
 	
 	case "chatrooms": 
     {
         if(isset($_GET["user_login"]) and isset($_GET["user_password"]))
-        {
-			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
-			$result = pg_query($query) or die(pg_last_error());
-			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-			if($line["user_password"] == $_GET["user_password"])
+        {	
+			$flag = Person($_GET["user_login"], $_GET["user_password"]);
+			if($flag == true)
 			{
-				$person_id         = $line["user_id"];
-				$person_firstname  = $line["user_firstname"];
-				$person_secondname = $line["user_secondname"];
-					
 				$text = "";
 				$query = "SELECT * FROM " . $database_name_chatrooms . " WHERE user_id = " . $person_id;
 				$result = pg_query($query) or die(pg_last_error());
@@ -210,22 +221,14 @@ switch ($comand)
 			}
         }
     } break;
-	
-	
-	
-	
+
 	case "chatroom_create": 
     {
         if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_name"]) and isset($_GET["chatroom_password"]))
         {
-			$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
-			$result = pg_query($query) or die(pg_last_error());
-			$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-			if($line["user_password"] == $_GET["user_password"])
+			$flag = Person($_GET["user_login"], $_GET["user_password"]);
+			if($flag == true and $_GET["chatroom_name"] != "")
 			{
-				$person_id         = $line["user_id"];
-				$person_firstname  = $line["user_firstname"];
-				$person_secondname = $line["user_secondname"];
 				$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
 				$result = pg_query($query) or die(pg_last_error());
 				echo "SUCCESS";
