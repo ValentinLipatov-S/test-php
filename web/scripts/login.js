@@ -100,7 +100,7 @@ $(document).ready(function()
 				for(var i = 0; i < arr.length - 1; i++)
 				{
 					var arr_2 = arr[i].split('<-id->');
-					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;"><input class = "Button" type = "submit" value = "Chat" style = "width: 40%; background: #7292ab;"/><input class = "Text" id = "Chatroom_connect_password" type = "password" placeholder = "Password" style = "width: 40%; margin-left: -7px;  margin-right: -7px;" /><input id = "' + arr_2[0] + '" class = "Chatroom_connect" type = "submit" value = "' + arr_2[1] + '" style = "width: 20%; background: #f07797; cursor: pointer; border: 0px;padding-top: 10px;padding-bottom: 10px;"/></div>').appendTo($("#chatroom_append"));
+					$('<div id = "chat" style = "width: 100%; display:none;"><input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/><input class = "Text" id = "Chatroom_connect_password" type = "password" placeholder = "Password" style = "width: 40%; margin-left: -7px;  margin-right: -7px;" /><input id = "' + arr_2[1] + '" class = "Button" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/></div>').appendTo($("#chatroom_append"));
 				    setTimeout(function() 
 					{
 						$("div[id = 'chat']").slideDown(300);		
