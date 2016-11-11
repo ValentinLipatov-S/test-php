@@ -335,8 +335,15 @@ $(document).ready(function()
 					else
 					{
 						Post--; 
-						$("div[id='download_message']").slideUp(300);
-						$("input[id='Update']").slideDown(300);
+						if(Post === "" || Post - Min_Post < 0)
+						{
+						
+						}
+						else 
+						{
+							$("div[id='download_message']").slideUp(300);
+							$("input[id='Update']").slideDown(300);
+						}
 					}
 					
 				}
