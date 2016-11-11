@@ -175,7 +175,7 @@ switch ($_GET["comand"])
 	{
 		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_text"]))
         {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "" and $_GET["chatroom_name"] != "")
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
 			{
 				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
@@ -191,11 +191,8 @@ switch ($_GET["comand"])
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS";
 					}
-					echo "1";
 				}
-				echo "2";
 			}
-			echo "3";
         }
 	}break;
 	
