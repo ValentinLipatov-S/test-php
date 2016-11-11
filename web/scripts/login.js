@@ -94,16 +94,14 @@ $(document).ready(function()
 			success: function(msg)
 			{
 				console.log(msg);
-				var arr = msg.split('<-name->');
-				
-				
+				var arr = msg.split('<-name->');		
 				for(var i = 0; i < arr.length - 1; i++)
 				{
 					var arr_2 = arr[i].split('<-id->');
 					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
 					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
 					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
-					'<input id = "' + arr_2[1] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+					'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
 					'</div>').appendTo($("#chatroom_append"));
 				    setTimeout(function() 
 					{
@@ -146,25 +144,149 @@ $(document).ready(function()
 		}
 	});	
 	
-	
-	
-	
+	var Max_Post = -1;
+	var Min_Post =  0;
+	var Post = -1;
 	
 	$('body').on('click', '.ChatRoomsButton', function()
-	{
-		$("div[id='download_chatroom']").slideDown(300);
+	{		
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
+		$("div[id='Autorization']").slideUp(300);
+		$("div[id='Profile']").slideDown(300);
+		$("div[id='ChatRooms']").slideUp(300);
+		$("div[id='Chat']").slideDown(300);
+		$("input[id='Exit_Button']").slideDown(300);
+		$("input[id='Chatmenu_Button']").slideDown(300);
 		$("input[id='Update']").slideDown(300);
+		$("div[id='download_chat']").slideDown(300);
+	
 		chatroom_id = $(this).attr("id");
-       alert(chatroom_id);
+		
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'get_last_id_message',
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password
+			},
+			success: function(msg) 
+			{ 
+				Max_Post = msg;
+				Post = Max_Post;
+				$.ajax
+				({
+					type: "GET",
+					url: "server.php",
+					data: 
+					{
+						comand: 'get_first_id_message',
+						chatroom_id: chatroom_id,
+						user_login: login,
+						user_password: password
+					},
+					success: function(msg) 
+					{ 
+						console.log(msg);
+					
+						Min_Post = msg;
+						Message_Timer();
+						
+						$("div[id='download_chat']").slideUp(300);
+						$("div[id='Autorization']").slideUp(300);
+						$("div[id='Profile']").slideDown(300);
+						$("div[id='ChatRooms']").slideUp(300);
+						$("div[id='Chat']").slideDown(300);
+						$("input[id='Exit_Button']").slideDown(300);
+						$("input[id='Chatmenu_Button']").slideDown(300);
+						$("input[id='Update']").slideDown(300);
+					}
+				});
+			}
+		});
+       
 	});
 
+	var Timer;
+	function Message_Timer () 
+	{
+		Timer = setInterval(function () 
+		{
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'get_last_id_message',
+					chatroom_id: chatroom_id,
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg) 
+				{ 
+					console.log(msg);
+					if(msg > Max_Post)
+					{
+						
+						while(msg > Max_Post)
+						{
+							Max_Post++;
+							$.ajax
+							({
+								type: "GET",
+								url: "server.php",
+								data: 
+								{
+									comand: 'get_messange',
+									message_id: Max_Post,
+									chatroom_id: chatroom_id,
+									user_login: login,
+									user_password: password
+								},
+								success: function(msg)
+								{	
+									console.log(msg);
+									var arr = msg.split('<:>');
+									if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display:none;"><b><p style = "color: ' + color() + ';">' + arr[0] + '</p></b> : <p>' + arr[1] + '</p></div><br>');
+									$("div[id = 'Post']").slideDown(300);
+								}
+							});	
+						}
+					}
+				}
+			}); 
+		},100);
+	}
 	
-	
-	
-	
-	
+	$('#Post_Send').click(function()
+	{
+		if($("#Post_Text").val() != "")
+		{
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'set_messange', 
+					message_text: $("#Post_Text").val(),
+					chatroom_id: chatroom_id,
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg)
+				{
+					console.log(msg);
+					$("#Post_Text").val("");
+				}					 
+			});
+		}
+	});
 	
 	
 	
