@@ -6,93 +6,56 @@ $dbconn = pg_connect("
 	password = 0p_EhxRACs9Q2b96sZ5Fs3zK_m
 ")or die('Could not connect: ' . pg_last_error());
 
-$database_name_users = "users";
-$database_name_chatrooms = "chatrooms";
-$database_name_messages = "messages";
-
-$comand     = $_GET["comand"];
-$firstname  = $_GET['user_firstname'];
-$secondname = $_GET['user_secondname'];
-$login      = $_GET['user_login'];
-$password   = $_GET['user_password'];
-
-
-$person_id;
-$person_firstname;
-$person_secondname;
-	
-switch ($comand)
+switch ($_GET["comand"])
 {
-	// Create DataBases
     case "create_database_users": 
     {
         try 
         {  
-            $query = "CREATE TABLE " . $database_name_users . " (
+            $query = "CREATE TABLE users (
             user_id SERIAL,
             user_firstname TEXT NOT NULL,
             user_secondname TEXT NOT NULL,
             user_login TEXT NOT NULL,
             user_password TEXT NOT NULL)";
             $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS";
-        } 
-        catch (Exception $e) 
-        {
-            echo "ERROR<-msg->Database are not created.";
-        }    
-    } break; 
-	
-	case "create_database_chatrooms": 
-    {
-        try 
-        {  
-            $query = "CREATE TABLE " . $database_name_chatrooms . " (
+            echo "SUCCESS table users is created";
+			
+			$query = "CREATE TABLE chatrooms (
             chatroom_id SERIAL,
             user_id INT NOT NULL,
             chatroom_name TEXT NOT NULL,
 			chatroom_password TEXT NOT NULL)";
             $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS";
+            echo "SUCCESS table chatrooms is created";
+			
+			$query = "CREATE TABLE messages (
+            message_id SERIAL,
+            user_id INT NOT NULL,
+			chatroom_id INT NOT NULL,
+            message_text TEXT NOT NULL)";
+            $result = pg_query($query) or die(pg_last_error());
+            echo "SUCCESS table messages is created";
         } 
         catch (Exception $e) 
         {
             echo "ERROR<-msg->Database are not created.";
         }    
     } break; 
-	
-	case "create_database_messages": 
-    {
-        try 
-        {  
-            $query = "CREATE TABLE " . $database_name_messages . " (
-            message_id SERIAL,
-            user_id INT NOT NULL,
-			chatroom_id INT NOT NULL,
-            message_text TEXT NOT NULL)";
-            $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS";
-        } 
-        catch (Exception $e) 
-        {
-            echo "ERROR<-msg->Database are not created.";
-        }    
-    } break;
     
-	//Login_Registration
     case "registration": 
     {
-        if(isset($firstname) and isset($secondname) and isset($login) and isset($password))
+        if(isset($_GET['user_firstname']) and isset($_GET['user_secondname']) and isset($_GET['user_login']) and isset($_GET['user_password']))
         {
-			if($firstname != "" and $secondname != "" and $login != "" and $password != "")
+			if($_GET['user_firstname'] != "" and $_GET['user_secondname'] != "" and $_GET['user_login'] != "" and $_GET['user_password'] != "")
 			{
-				if(strlen($firstname) > 2 and strlen($secondname) > 2 and strlen($login) > 5 and strlen($password) > 5 and strlen($firstname) < 21 and strlen($secondname) < 21 and strlen($login) < 31 and strlen($password) < 31)
+				if(strlen($_GET['user_firstname']) > 2 and strlen($_GET['user_secondname']) > 2 and strlen($_GET['user_login']) > 5 and strlen($_GET['user_password']) > 5 and strlen($_GET['user_firstname']) < 21 and strlen($_GET['user_secondname']) < 21 and strlen($_GET['user_login']) < 31 and strlen($_GET['user_password']) < 31)
 				{
-					$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
+					$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
 					$result = pg_query($query) or die(pg_last_error());
 					if(pg_num_rows($result) == 0)
 					{
-						$query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$firstname', '$secondname', '$login', '$password')";
+						$query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$_GET[user_firstname]', '$_GET[user_secondname]', '$_GET[user_login]', '$_GET[user_password]')";
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS<-msg->Registered user.";
 					}
@@ -116,32 +79,19 @@ switch ($comand)
             echo "ERROR<-msg->No value name or last name or login or password.";
         }
     } break;
-        
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
     case "autorization": 
     {
-        if(isset($login) and isset($password))
+        if(isset($_GET['user_login']) and isset($_GET['user_password']))
         {
-			if($login != "" and $password != "")
+			if($_GET['user_login'] != "" and $_GET['user_password'] != "")
 			{
-				$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
+				$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$_GET[user_login]' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
 				if(pg_num_rows($result) > 0)
 				{
 					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $password)
+					if($line["user_password"] == $_GET['user_password'])
 					{
 						echo "SUCCESS<-msg->Authorizated user.";
 					}
@@ -166,11 +116,6 @@ switch ($comand)
         }
     } break;
 	
-	
-	
-	
-	
-	
 	case "chatrooms": 
     {
         if(isset($_GET["user_login"]) and isset($_GET["user_password"]))
@@ -194,8 +139,7 @@ switch ($comand)
 						{
 							$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-name->";
 						}
-						echo $text;	
-						
+						echo $text;		
 					}
 				}
 			}
@@ -206,7 +150,7 @@ switch ($comand)
     {
         if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_name"]) and isset($_GET["chatroom_password"]))
         {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "" and $_GET["chatroom_name"] != "")
 			{
 				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
@@ -218,132 +162,39 @@ switch ($comand)
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-						if($_GET["chatroom_name"] != "")
-						{
-							$query = "INSERT INTO chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('$line[user_id]', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
-							$result = pg_query($query) or die(pg_last_error());
-							echo "SUCCESS";
-						}
+						$query = "INSERT INTO chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('$line[user_id]', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
+						$result = pg_query($query) or die(pg_last_error());
+						echo "SUCCESS";
 					}
 				}
 			}
         }
     } break;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
-    case "show_users":
+
+    case "query":
     {
-        $query = "SELECT * FROM " . $database_name_users;
-        $result = pg_query($query) or die(pg_last_error());
-        echo "<table>\n";
-        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-        {
-            echo "\t<tr>\n";
-            foreach ($line as $col_value) 
-            {
-                echo "\t\t<td>$col_value</td>\n";
-            }
-            echo "\t</tr>\n";
-        }
-	    echo "</table>\n";
+		if(isset($_GET["text"]) and $_GET["text"] != "")
+		{
+			$query = $_GET["text"];
+			$result = pg_query($query) or die(pg_last_error());
+			echo "<table>\n";
+			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+			{
+				echo "\t<tr>\n";
+				foreach ($line as $col_value) 
+				{
+					echo "\t\t<td>$col_value</td>\n";
+				}
+				echo "\t</tr>\n";
+			}
+			echo "</table>\n";
+		}
     }break;
-	
-    case "show_chatrooms":
-    {
-        $query = "SELECT * FROM " . $database_name_chatrooms;
-        $result = pg_query($query) or die(pg_last_error());
-        echo "<table>\n";
-        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-        {
-            echo "\t<tr>\n";
-            foreach ($line as $col_value) 
-            {
-                echo "\t\t<td>$col_value</td>\n";
-            }
-            echo "\t</tr>\n";
-        }
-	    echo "</table>\n";
-    }break;
-	
-	 case "show_messages":
-    {
-        $query = "SELECT * FROM " . $database_name_messages;
-        $result = pg_query($query) or die(pg_last_error());
-        echo "<table>\n";
-        while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-        {
-            echo "\t<tr>\n";
-            foreach ($line as $col_value) 
-            {
-                echo "\t\t<td>$col_value</td>\n";
-            }
-            echo "\t</tr>\n";
-        }
-	    echo "</table>\n";
-    }break;
-	
-	
-	
-	
-	
-	
 	
     default: 
     {
         echo "ERROR<-msg->Unknow comand.";
     } break;
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 pg_free_result($result);
 pg_close($dbconn);
