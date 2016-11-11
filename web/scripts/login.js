@@ -102,7 +102,7 @@ $(document).ready(function()
 					var arr_2 = arr[i].split('<-id->');
 					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
 					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
-					'<input class = "Text" id = "Chatroom_connect_password" type = "password" placeholder = "Password" style = "width: 40%;" />' + 
+					'<input id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
 					'<input id = "' + arr_2[1] + '" class = "Button" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
 					'</div>').appendTo($("#chatroom_append"));
 				    setTimeout(function() 
