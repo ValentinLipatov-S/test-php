@@ -150,11 +150,12 @@ $(document).ready(function()
 	
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
+		clearInterval(Timer);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
 		$("div[id='Autorization']").slideUp(300);
 		$("div[id='Profile']").slideUp(300);
-		$("div[id='ChatRooms']").slideUp(300);
+		$("div[id='ChatRooms']").slideDown(300);
 		$("div[id='Chat']").slideDown(300);
 		$("input[id='Exit_Button']").slideDown(300);
 		$("input[id='Chatmenu_Button']").slideDown(300);
@@ -195,11 +196,11 @@ $(document).ready(function()
 						console.log(msg);
 						Min_Post = msg;
 						Message_Timer();
-						
+						$("#Update").click();
 						$("div[id='download_chat']").slideUp(300);
 						$("div[id='Autorization']").slideUp(300);
 						$("div[id='Profile']").slideUp(300);
-						$("div[id='ChatRooms']").slideUp(300);
+						$("div[id='ChatRooms']").slideDown(300);
 						$("div[id='Chat']").slideDown(300);
 						$("input[id='Exit_Button']").slideDown(300);
 						$("input[id='Chatmenu_Button']").slideDown(300);
@@ -339,5 +340,22 @@ $(document).ready(function()
 			});
 		}
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 });
