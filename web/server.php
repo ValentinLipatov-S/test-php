@@ -55,7 +55,7 @@ switch ($_GET["comand"])
 					$result = pg_query($query) or die(pg_last_error());
 					if(pg_num_rows($result) == 0)
 					{
-						$query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$_GET[user_firstname]', '$_GET[user_secondname]', '$_GET[user_login]', '$_GET[user_password]')";
+						$query = "INSERT INTO users (user_firstname, user_secondname, user_login, user_password) VALUES ('$_GET[user_firstname]', '$_GET[user_secondname]', '$_GET[user_login]', '$_GET[user_password]')";
 						$result = pg_query($query) or die(pg_last_error());
 						echo "SUCCESS<-msg->Registered user.";
 					}
