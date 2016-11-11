@@ -213,6 +213,7 @@ switch ($_GET["comand"])
 					if($line["user_password"] == $_GET["user_password"])
 					{
 						$person_id         = $line["user_id"];
+						$val = $line['user_id'];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
 						
@@ -221,7 +222,7 @@ switch ($_GET["comand"])
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						$msg_text = $line['message_text'];
 						
-						$val = $line['user_id'];
+
 						$query = "SELECT * FROM users WHERE user_id = '$val' LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
