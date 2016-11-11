@@ -158,7 +158,7 @@ $(document).ready(function()
 				comand: 'chatrooms_search', 
 				user_login: login,
 				user_password: password,
-				chatrooms_search_text: $("#Search_text").val();
+				chatrooms_search_text: $("#Search_text").val()
 			},
 			success: function(msg)
 			{
