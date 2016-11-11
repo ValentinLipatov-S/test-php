@@ -177,7 +177,6 @@ $(document).ready(function()
 			success: function(msg) 
 			{ 
 				console.log(msg);
-				alert(msg);
 				Max_Post = msg;
 				Post = Max_Post;
 				$.ajax
@@ -194,7 +193,6 @@ $(document).ready(function()
 					success: function(msg) 
 					{ 
 						console.log(msg);
-						alert(msg);
 						Min_Post = msg;
 						Message_Timer();
 						
@@ -264,6 +262,58 @@ $(document).ready(function()
 			}); 
 		},100);
 	}
+	var Stop = -1;
+	var Start = -1;
+	function Update ()
+	{
+		if(Post === "" || Post - Min_Post < 0)
+		{
+			$("div[id='download_message']").slideUp(300);
+			$("input[id='Update']").slideUp(300);
+		}
+		else
+		{
+			$("div[id='download_message']").slideDown(300);
+			$("input[id='Update']").slideUp(300);
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'get_message',
+					message_id: Post,
+					chatroom_id: chatroom_id,
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg)
+				{
+					var arr = msg.split('<:>');
+					if(arr[1] != "" && msg !="")
+					{
+						$('<div id = "Post" style = ""><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
+						$("div[id = 'Post']").slideDown(300);	
+						Start--;
+					}
+					if(Start > Stop){Post--; Update();}
+					else
+					{
+						Post--; 
+						setTimeout(function() 
+						{
+							$("div[id='download_message']").slideUp(300);
+							$("input[id='Update']").slideDown(300);
+						}, 100);
+					}
+					
+				}
+			});	
+		}	
+	}	
+	
+	$('#Update').click(function(){Start = Post; Stop = Post - 15; Update();});
+
 	
 	$('#Post_Send').click(function()
 	{
