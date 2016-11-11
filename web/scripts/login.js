@@ -146,7 +146,8 @@ $(document).ready(function()
 	 
 	$('#Exit_Button').click(function()
 	{
-		clearInterval(Timer);
+		clearInterval(Timer);	
+		$("div[id='download_autorization']").slideUp(300);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
 		$("div[id='Autorization']").slideDown(300);
@@ -334,11 +335,8 @@ $(document).ready(function()
 					else
 					{
 						Post--; 
-						setTimeout(function() 
-						{
-							$("div[id='download_message']").slideUp(300);
-							$("input[id='Update']").slideDown(300);
-						}, 100);
+						$("div[id='download_message']").slideUp(300);
+						$("input[id='Update']").slideDown(300);
 					}
 					
 				}
