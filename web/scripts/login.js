@@ -118,9 +118,9 @@ $(document).ready(function()
 	
 	
 	
-	$('#ChatRoom_Create').click(function()
+	$('#Chatroom_create').click(function()
 	{
-		if($("#ChatRoom_Name").val() != "")
+		if($("#Chatroom_name").val() != "")
 		{
 			$("div[id='download_chatroom']").slideDown(300);
 			$.ajax
@@ -130,7 +130,7 @@ $(document).ready(function()
 				data: 
 				{
 					comand: 'chatroom_create', 
-					chatroom_name: $("#ChatRoom_Name").val(),
+					chatroom_name: $("#Chatroom_name").val(),
 					user_login: login,
 					user_password: password,
 					chatroom_password: 12345
@@ -139,7 +139,7 @@ $(document).ready(function()
 				{
 					console.log(msg);
 					$("div[id='download_chatroom']").slideUp(300);
-					$("#ChatRoom_Name").val("");
+					$("#Chatroom_name").val("");
 					AddChatRooms();
 				}					 
 			});
