@@ -99,9 +99,30 @@ switch ($comand)
     {
         if(isset($firstname) and isset($secondname) and isset($login) and isset($password))
         {
-            $query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$firstname', '$secondname', '$login', '$password')";
-            $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS<-msg->Registered user.";
+			if($firstname != "" and $secondname != "" and $login != "" and $password != "")
+			{
+				if(strlen($firstname) > 2 and 
+				strlen($secondname) > 2 and 
+				strlen($login) > 5 and 
+				strlen($password) > 5 and 
+				strlen($firstname) < 21 
+				and strlen($secondname) < 21 
+				and strlen($login) < 31 
+				and strlen($password) < 31)
+				{
+					$query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$firstname', '$secondname', '$login', '$password')";
+					$result = pg_query($query) or die(pg_last_error());
+					echo "SUCCESS<-msg->Registered user.";
+				}
+				else 
+				{
+					echo "ERROR<-msg->Length:<br>first name 3 - 20<br>second name 3 - 20<br>login name 6 - 30<br>password name 6 - 30";
+				}
+			}
+			else
+			{
+				echo "ERROR<-msg->No value name or last name or login or password.";
+			}
         }
         else 
         {
@@ -126,24 +147,31 @@ switch ($comand)
     {
         if(isset($login) and isset($password))
         {
-            $query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
-            $result = pg_query($query) or die(pg_last_error());
-            if(pg_num_rows($result) > 0)
-            {
-                $line = pg_fetch_array($result, null, PGSQL_ASSOC);
-                if($line["user_password"] == $password)
-                {
-                    echo "SUCCESS<-msg->Authorizated user.";
-                }
-                else
-                {
-                    echo "ERROR<-msg->Incorrect password.";
-                }
-            }
-            else
-            {
-                echo "ERROR<-msg->Incorrect login.";
-            }
+			if($firstname != "" and $secondname != "" and $login != "" and $password != "")
+			{
+				$query = "SELECT * FROM " . $database_name_users . " WHERE user_login = '$login' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $password)
+					{
+						echo "SUCCESS<-msg->Authorizated user.";
+					}
+					else
+					{
+						echo "ERROR<-msg->Incorrect password.";
+					}
+				}
+				else
+				{
+					echo "ERROR<-msg->Incorrect login.";
+				}
+			}
+			else
+			{
+				echo "ERROR<-msg->No value name or last name or login or password.";
+			}
         }
         else 
         {
@@ -251,6 +279,7 @@ switch ($comand)
     {
         $query = "SELECT * FROM " . $database_name_users;
         $result = pg_query($query) or die(pg_last_error());
+		echo pg_num_rows($result);
         echo "<table>\n";
         while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
         {
