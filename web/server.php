@@ -1,325 +1,341 @@
-<?php
-$dbconn = pg_connect("
-	host     = ec2-54-75-228-85.eu-west-1.compute.amazonaws.com
-	dbname   = ddrgbsg3qokpc2
-	user     = kbpivkrmvdkauu
-	password = 0p_EhxRACs9Q2b96sZ5Fs3zK_m
-")or die('Could not connect: ' . pg_last_error());
-
-switch ($_GET["comand"])
-{
-    case "create_database_users": 
-    {
-        try 
-        {  
-            $query = "CREATE TABLE users (
-            user_id SERIAL,
-            user_firstname TEXT NOT NULL,
-            user_secondname TEXT NOT NULL,
-            user_login TEXT NOT NULL,
-            user_password TEXT NOT NULL)";
-            $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS table users is created";
-			
-			$query = "CREATE TABLE chatrooms (
-            chatroom_id SERIAL,
-            user_id INT NOT NULL,
-            chatroom_name TEXT NOT NULL,
-			chatroom_password TEXT NOT NULL)";
-            $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS table chatrooms is created";
-			
-			$query = "CREATE TABLE messages (
-            message_id SERIAL,
-            user_id INT NOT NULL,
-			chatroom_id INT NOT NULL,
-            message_text TEXT NOT NULL)";
-            $result = pg_query($query) or die(pg_last_error());
-            echo "SUCCESS table messages is created";
-        } 
-        catch (Exception $e) 
-        {
-            echo "ERROR<-msg->Database are not created.";
-        }    
-    } break; 
-    
-    case "registration": 
-    {
-        if(isset($_GET['user_firstname']) and isset($_GET['user_secondname']) and isset($_GET['user_login']) and isset($_GET['user_password']))
-        {
-			if($_GET['user_firstname'] != "" and $_GET['user_secondname'] != "" and $_GET['user_login'] != "" and $_GET['user_password'] != "")
+$(document).ready(function()
+{	
+	var login, password, chatroom_id;
+	$('#Login').click(function()
+	{			
+		$("div[id='message']").slideUp(300);
+		$("div[id='download_autorization']").slideDown(300);
+		var user_login_now = $("#Login_Login").val();
+		var user_password_now = $("#Login_Password").val();
+		$.ajax
+		({
+			type: "GET",
+			url:  "server.php",
+			data: 
 			{
-				if(strlen($_GET['user_firstname']) > 2 and strlen($_GET['user_secondname']) > 2 and strlen($_GET['user_login']) > 5 and strlen($_GET['user_password']) > 5 and strlen($_GET['user_firstname']) < 21 and strlen($_GET['user_secondname']) < 21 and strlen($_GET['user_login']) < 31 and strlen($_GET['user_password']) < 31)
-				{
-					$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-					$result = pg_query($query) or die(pg_last_error());
-					if(pg_num_rows($result) == 0)
-					{
-						$query = "INSERT INTO " . $database_name_users . " (user_firstname, user_secondname, user_login, user_password) VALUES ('$_GET[user_firstname]', '$_GET[user_secondname]', '$_GET[user_login]', '$_GET[user_password]')";
-						$result = pg_query($query) or die(pg_last_error());
-						echo "SUCCESS<-msg->Registered user.";
-					}
-					else 
-					{
-						echo "ERROR<-msg->User with such login is already registered.";
-					}
-				}
-				else 
-				{
-					echo "ERROR<-msg->Length:<br>first name: 3 - 20;<br>second name: 3 - 20;<br>login name: 6 - 30;<br>password: 6 - 30;";
-				}
-			}
-			else
+				comand:   	   "autorization", 
+				user_login:    user_login_now, 
+				user_password: user_password_now
+			},
+			success: function(msg)
 			{
-				echo "ERROR<-msg->No value name or last name or login or password.";
-			}
-        }
-        else 
-        {
-            echo "ERROR<-msg->No value name or last name or login or password.";
-        }
-    } break;
-	
-    case "autorization": 
-    {
-        if(isset($_GET['user_login']) and isset($_GET['user_password']))
-        {
-			if($_GET['user_login'] != "" and $_GET['user_password'] != "")
-			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
-				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET['user_password'])
-					{
-						echo "SUCCESS<-msg->Authorizated user.";
-					}
-					else
-					{
-						echo "ERROR<-msg->Incorrect password.";
-					}
+				console.log(msg);
+				var arr = msg.split('<-msg->');
+				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+				if(arr[0] == "SUCCESS")
+				{	
+					login = user_login_now;
+					password = user_password_now;
+					$("div[id='Autorization']").slideUp(300);
+					$("input[id='Exit_Button']").slideDown(300);
+					AddChatRooms();					
 				}
 				else
 				{
-					echo "ERROR<-msg->Incorrect login.";
-				}
-			}
-			else
-			{
-				echo "ERROR<-msg->No value login or password.";
-			}
-        }
-        else 
-        {
-            echo "ERROR<-msg->No value login or password.";
-        }
-    } break;
-	
-	case "chatrooms": 
-    {
-        if(isset($_GET["user_login"]) and isset($_GET["user_password"]))
-        {	
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
-			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
-				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
+					$("div[id='message']").slideDown(300);
+					$("div[id='download_autorization']").slideUp(300);
+					setTimeout(function() 
 					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];		
-						$text = "";
-						$query = "SELECT * FROM chatrooms";
-						$result = pg_query($query) or die(pg_last_error());
-						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-						{
-							$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-name->";
-						}
-						echo $text;		
-					}
+						$("div[id='message']").slideUp(300);	
+					}, 3000);
 				}
-			}
-        }
-    } break;
-
-	case "chatroom_create": 
-    {
-        if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_name"]) and isset($_GET["chatroom_password"]))
-        {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "" and $_GET["chatroom_name"] != "")
-			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
-				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
-					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];	
-						$query = "INSERT INTO chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('" . $line['user_id'] . "', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
-						$result = pg_query($query) or die(pg_last_error());
-						echo "SUCCESS";
-					}
-				}
-			}
-        }
-    } break;
-	
-	case "set_message":
+			}					 
+		});			
+	});
+	$('#Registartion').click(function()
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_text"]))
-        {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+		$("div[id='message']").slideUp(300); 
+		$("div[id='download_autorization']").slideDown(300);
+		$.ajax
+		({
+			type: "GET",
+			url:  "server.php",
+			data: 
 			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
+				comand:   	       "registration", 
+				user_login: 	   $("#Registartion_Login").val(), 
+				user_password: 	   $("#Registartion_Password").val(),
+				user_firstname:    $("#Registartion_Name").val(), 
+				user_secondname:   $("#Registartion_Surname").val()
+			},
+			success: function(msg)
+			{
+				console.log(msg);
+				var arr = msg.split('<-msg->');
+				
+				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+				$("div[id='message']").slideDown(300);
+				$("div[id='download_autorization']").slideUp(300);
+				setTimeout(function() 
 				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
-					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];	
-						$query = "INSERT INTO messages (user_id, chatroom_id, message_text) VALUES ('" . $line['user_id'] . "', '$_GET[chatroom_id]', '$_GET[message_text]')";
-						$result = pg_query($query) or die(pg_last_error());
-						echo "SUCCESS";
-					}
-				}
-			}
-        }
-	}break;
+					$("div[id='message']").slideUp(300);	
+				}, 3000);
+			}					 
+		});			
+	});
 	
-	case "get_message":
+	
+	
+	function AddChatRooms()
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_id"]))
-        {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+		$("div[id='ChatRooms']").slideDown(300);
+		$("div[id='download_chatroom']").slideDown(300);
+		$("#chatroom_append").empty();
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
 			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
+				comand: 'chatrooms', 
+				user_login: login,
+				user_password: password
+			},
+			success: function(msg)
+			{
+				console.log(msg);
+				var arr = msg.split('<-name->');		
+				for(var i = 0; i < arr.length - 1; i++)
 				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
+					var arr_2 = arr[i].split('<-id->');
+					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
+					'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+					'</div>').appendTo($("#chatroom_append"));
+				    setTimeout(function() 
 					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];	
-						
-						$query = "SELECT * FROM messages WHERE message_id = '$_GET[message_id]' and chatroom_id = '$_GET[chatroom_id]'";
-						$result = pg_query($query) or die(pg_last_error());
-						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						$msg_text = $line['message_text'];
-						
-						$query = "SELECT * FROM users WHERE user_id = '" . $line['user_id'] . "' LIMIT 1";
-						$result = pg_query($query) or die(pg_last_error());
-						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						
-						echo $line['user_firstname'] . ' ' . $line['user_secondname'] . '<:>' . $msg_text;
-					}
-				}
+						$("div[id = 'chat']").slideDown(300);		
+					}, 100); 
+				}	
+				$("div[id='download_chatroom']").slideUp(300);
 			}
-        }
-	}break;
+		});			
+	}
 	
-	case "get_first_id_message":
+	
+	
+	
+	$('#Chatroom_create').click(function()
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]))
-        {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
-			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
-				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
-					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];	
-					
-
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id LIMIT 1";
-						$result = pg_query($query) or die(pg_last_error());
-						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						if($line['message_id'] == "")echo 0;
-						else echo $line['message_id'];
-					}
-				}
-			}
-        }
-	}break;
-	
-	case "get_last_id_message":
-	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]))
-        {
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
-			{
-				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
-				$result = pg_query($query) or die(pg_last_error());
-				if(pg_num_rows($result) > 0)
-				{
-					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-					if($line["user_password"] == $_GET["user_password"])
-					{
-						$person_id         = $line["user_id"];
-						$person_firstname  = $line["user_firstname"];
-						$person_secondname = $line["user_secondname"];	
-					
-
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]' ORDER BY message_id DESC LIMIT 1";
-						$result = pg_query($query) or die(pg_last_error());
-						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						if($line['message_id'] == "")echo 0;
-						else echo $line['message_id'];
-					}
-				}
-			}
-        }
-	}break;
-	
-	
-	
-	
-	
-	
-	
-	
-
-    case "query":
-    {
-		if(isset($_GET["text"]) and $_GET["text"] != "")
+		if($("#Chatroom_name").val() != "")
 		{
-			$query = $_GET["text"];
-			$result = pg_query($query) or die(pg_last_error());
-			echo "<table>\n";
-			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-			{
-				echo "\t<tr>\n";
-				foreach ($line as $col_value) 
+			$("div[id='download_chatroom']").slideDown(300);
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
 				{
-					echo "\t\t<td>$col_value</td>\n";
-				}
-				echo "\t</tr>\n";
-			}
-			echo "</table>\n";
+					comand: 'chatroom_create', 
+					chatroom_name: $("#Chatroom_name").val(),
+					user_login: login,
+					user_password: password,
+					chatroom_password: 12345
+				},
+				success: function(msg)
+				{
+					console.log(msg);
+					$("div[id='download_chatroom']").slideUp(300);
+					$("#Chatroom_name").val("");
+					AddChatRooms();
+				}					 
+			});
 		}
-    }break;
+	});	
 	
-    default: 
-    {
-        echo "ERROR<-msg->Unknow comand.";
-    } break;
-}
-pg_free_result($result);
-pg_close($dbconn);
-?>
+	var Max_Post = -1;
+	var Min_Post =  0;
+	var Post = -1;
+	
+	$('body').on('click', '.ChatRoomsButton', function()
+	{		
+		$("#Post_Area").empty();
+		$("#chatroom_append").empty();
+		$("div[id='Autorization']").slideUp(300);
+		$("div[id='Profile']").slideUp(300);
+		$("div[id='ChatRooms']").slideUp(300);
+		$("div[id='Chat']").slideDown(300);
+		$("input[id='Exit_Button']").slideDown(300);
+		$("input[id='Chatmenu_Button']").slideDown(300);
+		$("input[id='Update']").slideDown(300);
+		$("div[id='download_chat']").slideDown(300);
+	
+		chatroom_id = $(this).attr("id");
+		
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'get_last_id_message',
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password
+			},
+			success: function(msg) 
+			{ 
+				console.log(msg);
+				Max_Post = msg;
+				Post = Max_Post;
+				$.ajax
+				({
+					type: "GET",
+					url: "server.php",
+					data: 
+					{
+						comand: 'get_first_id_message',
+						chatroom_id: chatroom_id,
+						user_login: login,
+						user_password: password
+					},
+					success: function(msg) 
+					{ 
+						console.log(msg);
+						Min_Post = msg;
+						Message_Timer();
+						$("#Update").click();
+						$("div[id='download_chat']").slideUp(300);
+						$("div[id='Autorization']").slideUp(300);
+						$("div[id='Profile']").slideUp(300);
+						$("div[id='ChatRooms']").slideUp(300);
+						$("div[id='Chat']").slideDown(300);
+						$("input[id='Exit_Button']").slideDown(300);
+						$("input[id='Chatmenu_Button']").slideDown(300);
+						$("input[id='Update']").slideDown(300);
+					}
+				});
+			}
+		});
+       
+	});
+
+	var Timer;
+	function Message_Timer () 
+	{
+		Timer = setInterval(function () 
+		{
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'get_last_id_message',
+					chatroom_id: chatroom_id,
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg) 
+				{ 
+					console.log(msg);
+					if(msg > Max_Post)
+					{
+						
+						while(msg > Max_Post)
+						{
+							Max_Post++;
+							$.ajax
+							({
+								type: "GET",
+								url: "server.php",
+								data: 
+								{
+									comand: 'get_message',
+									message_id: Max_Post,
+									chatroom_id: chatroom_id,
+									user_login: login,
+									user_password: password
+								},
+								success: function(msg)
+								{	
+									console.log(msg);
+									var arr = msg.split('<:>');
+									if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = ""><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
+									$("div[id = 'Post']").slideDown(300);
+								}
+							});	
+						}
+					}
+				}
+			}); 
+		},100);
+	}
+	var Stop = -1;
+	var Start = -1;
+	function Update ()
+	{
+		if(Post === "" || Post - Min_Post < 0)
+		{
+			$("div[id='download_message']").slideUp(300);
+			$("input[id='Update']").slideUp(300);
+		}
+		else
+		{
+			$("div[id='download_message']").slideDown(300);
+			$("input[id='Update']").slideUp(300);
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'get_message', 
+					message_id: Post,
+					chatroom_id: chatroom_id,
+				    user_login: login,
+				    user_password: password
+				},
+				success: function(msg)
+				{
+					var arr = msg.split('<:>');
+					if(arr[1] != "" && msg !="")
+					{
+						$('<div id = "Post" style = ""><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
+						$("div[id = 'Post']").slideDown(300);	
+						Start--;
+					}
+					if(Start > Stop){Post--; Update();}
+					else
+					{
+						Post--; 
+						setTimeout(function() 
+						{
+							$("div[id='download_message']").slideUp(300);
+							$("input[id='Update']").slideDown(300);
+						}, 100);
+					}
+					
+				}
+			});	
+		}	
+	}	
+	
+	$('#Update').click(function(){Start = Post; Stop = Post - 15; Update();});
+	$('#Post_Send').click(function()
+	{
+		if($("#Post_Send_Text").val() != "")
+		{
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'set_message', 
+					message_text: $("#Post_Send_Text").val(),
+					chatroom_id: chatroom_id,
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg)
+				{
+					console.log(msg);
+					$("#Post_Send_Text").val("");
+				}					 
+			});
+		}
+	});
+	
+});
