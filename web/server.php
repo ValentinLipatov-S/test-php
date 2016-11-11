@@ -25,7 +25,7 @@ function Person($log, $pas)
 {
 	if($log != "" and $pas != "")
 	{
-		$query = "SELECT * FROM users WHERE user_login = '$log' LIMIT 1";
+		$query = "SELECT * FROM $database_name_users WHERE user_login = '$log' LIMIT 1";
 		$result = pg_query($query) or die(pg_last_error());
 		if(pg_num_rows($result) > 0)
 		{
@@ -202,7 +202,7 @@ switch ($comand)
 			if($flag == true)
 			{
 				$text = "";
-				$query = "SELECT * FROM " . $database_name_chatrooms . " WHERE user_id = " . $person_id;
+				$query = "SELECT * FROM $database_name_chatrooms WHERE user_id = '$person_id'";
 				$result = pg_query($query) or die(pg_last_error());
 				while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
 				{
@@ -220,7 +220,7 @@ switch ($comand)
 			$flag = Person($_GET["user_login"], $_GET["user_password"]);
 			if($flag == true and $_GET["chatroom_name"] != "")
 			{
-				$query = "INSERT INTO " . $database_name_chatrooms . " (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
+				$query = "INSERT INTO $database_name_chatrooms (user_id, chatroom_name, chatroom_password) VALUES ('$person_id', '$_GET[chatroom_name]', '$_GET[chatroom_password]')";
 				$result = pg_query($query) or die(pg_last_error());
 				echo "SUCCESS";
 			}
