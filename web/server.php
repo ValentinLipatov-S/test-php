@@ -257,12 +257,16 @@ switch ($_GET["comand"])
 							{
 								$msg_text = $line['message_text'];
 								$val = $line['user_id'];
-								if($val != "")
+								if($val != "" and $msg_text != "")
 								{
 									$query_1 = "SELECT * FROM users WHERE user_id='$val'";
 									$result_1 = pg_query($query_1) or die(pg_last_error());
 									$line_1 = pg_fetch_array($result_1, null, PGSQL_ASSOC);
-									echo $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text;
+									
+									if($line_1['user_firstname'] != "" and $line_1['user_secondname'] != "")
+									{
+										echo $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text;
+									}
 								}
 								break;
 							}
