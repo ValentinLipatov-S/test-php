@@ -29,6 +29,7 @@ $(document).ready(function()
 					$("div[id='message']").slideDown(375);
 					$("div[id='Autorization']").slideUp(375);
 					$("input[id='Exit_Button']").slideDown(375);
+					$("div[id='Profile']").slideDown(375);
 					setTimeout(function() 
 					{
 						$("div[id='message']").slideUp(375);	
@@ -220,6 +221,7 @@ $(document).ready(function()
 	{
 		clearInterval(Timer);	
 		$("div[id='download_autorization']").slideUp(375);
+		$("div[id='Profile']").slideUp(375);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
 		$("div[id='Autorization']").slideDown(375);
@@ -234,9 +236,57 @@ $(document).ready(function()
 		chatroom_id = "";
 	});
 	
+	
+	
+	
+	$('#Change_Name').click(function()
+	{
+		$('#download_profile').slideDown(375);
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'change_firstname',
+				user_login: login,
+				user_password: password,
+				new_user_secondname: $('#Change_Name_Text').val() 
+			},
+			success: function(msg)
+			{
+				$('#Profile_Name').val(msg);
+				$('#download_profile').slideUp(375);
+			});	
+		
+	});
+	
+	$('#Change_Surname').click(function()
+	{
+		$('#download_profile').slideDown(375);
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'change_secondname',
+				user_login: login,
+				user_password: password,
+				new_user_secondname: $('#Change_Surname_Text').val() 
+			},
+			success: function(msg)
+			{
+				$('#Profile_Surname').val(msg);
+				$('#download_profile').slideUp(375);
+			});	
+		
+	});
+	
 	$('#Chatmenu_Button').click(function()
 	{
 		clearInterval(Timer);
+		$("div[id='Profile']").slideDown(375);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
 		$("div[id='Autorization']").slideUp(375);
@@ -304,6 +354,7 @@ $(document).ready(function()
 						$("input[id='Chatmenu_Button']").slideDown(375);
 						$("input[id='Update']").hide();
 						$("div[id='download_chat']").slideUp(375);
+						$("div[id='Profile']").slideUp(375);
 						$.ajax
 						({
 							type: "GET",
