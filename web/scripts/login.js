@@ -21,9 +21,14 @@ $(document).ready(function()
 			{
 				console.log(msg);
 				var arr = msg.split('<-msg->');
-				$("#p_message").html(arr[0] + " : " + arr[1]);
 				if(arr[0] == "SUCCESS")
 				{	
+					var arr_2 = arr[1].split('<-name->');
+					var name = arr_2[0];
+					var surname = arr_2[1];
+					$("#p_message").html(arr[0] + " : Autorization user as " + name + " " + surname);
+					$('#Profile_Name').val(name]);
+					$('#Profile_Surname').val(surname);
 					login = user_login_now;
 					password = user_password_now;
 					$("div[id='message']").slideDown(375);
