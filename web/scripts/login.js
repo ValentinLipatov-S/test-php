@@ -353,63 +353,69 @@ $(document).ready(function()
 	});
 
 	var Timer;
+	var flag = false;
 	function Message_Timer () 
 	{
+		flag = false;
 		Timer = setInterval(function () 
 		{
-			$.ajax
-			({
-				type: "GET",
-				url: "server.php",
-				async: false,
-				data: 
-				{
-					comand: 'get_last_id_message',
-					chatroom_id: chatroom_id,
-					user_login: login,
-					user_password: password,
-					chatroom_password: chatroom_password
-				},
-				success: function(msg) 
-				{ 
-					console.log(msg);
-					var arr = msg.split('<-id->');	
-					if(arr[1] != "" && arr[0] != "")
+			if(flag == false)
+			{
+				flag = true;
+				$.ajax
+				({
+					type: "GET",
+					url: "server.php",
+					data: 
 					{
-						if(arr[0] == chatroom_id)
+						comand: 'get_last_id_message',
+						chatroom_id: chatroom_id,
+						user_login: login,
+						user_password: password,
+						chatroom_password: chatroom_password
+					},
+					success: function(msg) 
+					{ 
+						flag = false;
+						console.log(msg);
+						var arr = msg.split('<-id->');	
+						if(arr[1] != "" && arr[0] != "")
 						{
-							if(arr[1] > Max_Post)
+							if(arr[0] == chatroom_id)
 							{
-								while(arr[1] > Max_Post)
+								if(arr[1] > Max_Post)
 								{
-									Max_Post++;
-									$.ajax
-									({
-										type: "GET",
-										url: "server.php",
-										data: 
-										{
-											comand: 'get_message',
-											message_id: Max_Post,
-											chatroom_id: chatroom_id,
-											user_login: login,
-											user_password: password,
-											chatroom_password: chatroom_password
-										},
-										success: function(msg)
-										{	
-											console.log(msg);
-											var arr = msg.split('<:>');
-											if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
-											$("div[id = 'Post']").slideDown(375);
-										}
-									});	
+									while(arr[1] > Max_Post)
+									{
+										Max_Post++;
+										$.ajax
+										({
+											type: "GET",
+											url: "server.php",
+											data: 
+											{
+												comand: 'get_message',
+												message_id: Max_Post,
+												chatroom_id: chatroom_id,
+												user_login: login,
+												user_password: password,
+												chatroom_password: chatroom_password
+											},
+											success: function(msg)
+											{	
+												console.log(msg);
+												var arr = msg.split('<:>');
+												if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
+												$("div[id = 'Post']").slideDown(375);
+											}
+										});	
+									}
 								}
 							}
-						}
-					}	
-				}
-			}); 
+						}	
+					}
+				}); 
+			}
 		},100);
 	}
 	var Stop = -1;
