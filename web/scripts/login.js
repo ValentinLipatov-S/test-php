@@ -246,6 +246,7 @@ $(document).ready(function()
 	$('#Change_Name').click(function()
 	{
 		$('#download_profile').slideDown(375);
+		$('#Change_Name_Text').val("");
 		$.ajax
 		({
 			type: "GET",
@@ -255,7 +256,7 @@ $(document).ready(function()
 				comand: 'change_firstname',
 				user_login: login,
 				user_password: password,
-				new_user_secondname: $('#Change_Name_Text').val() 
+				new_user_firstname: $('#Change_Name_Text').val() 
 			},
 			success: function(msg)
 			{
@@ -269,6 +270,7 @@ $(document).ready(function()
 	$('#Change_Surname').click(function()
 	{
 		$('#download_profile').slideDown(375);
+		$('#Change_Surname_Text').val(""); 
 		$.ajax
 		({
 			type: "GET",
