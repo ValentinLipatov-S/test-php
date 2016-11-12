@@ -93,7 +93,7 @@ switch ($_GET["comand"])
 					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 					if($line["user_password"] == $_GET['user_password'])
 					{
-						echo "SUCCESS<-msg->Authorizated user.";
+						echo "SUCCESS<-msg->" . $line["user_firstname"] . "<-name->". $line["user_secondname"];
 					}
 					else
 					{
