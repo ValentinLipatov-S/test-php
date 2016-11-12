@@ -294,8 +294,9 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-		
-						echo 1;
+						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+						$result = pg_query($query) or die(pg_last_error());
+						echo '1' . '<-id->' . pg_num_rows($result);
 					}
 				}
 			}
