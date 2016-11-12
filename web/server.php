@@ -433,6 +433,7 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];		
 						$query = "UPDATE users SET user_firstname = '$_GET[new_user_firstname]' WHERE user_login = '$_GET[user_login]'";
+						$result = pg_query($query) or die(pg_last_error());				
 						echo $_GET["new_user_firstname"];						
 					}
 				}
@@ -457,6 +458,7 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];		
 						$query = "UPDATE users SET user_secondname = '$_GET[new_user_secondname]' WHERE user_login = '$_GET[user_login]'";	
+						$result = pg_query($query) or die(pg_last_error());				
 						echo $_GET["new_user_secondname"];
 					}
 				}
