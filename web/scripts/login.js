@@ -343,13 +343,13 @@ $(document).ready(function()
 	{
 		if(Post === "" || Post - Min_Post < 0)
 		{
-			$("div[id='download_message']").slideUp(300);
-			$("input[id='Update']").slideUp(300);
+			$("div[id='download_message']").hide(300);
+			$("input[id='Update']").hide(300);
 		}
 		else
 		{
-			$("div[id='download_message']").slideDown(300);
-			$("input[id='Update']").slideUp(300);
+			$("div[id='download_message']").show(300);
+			$("input[id='Update']").hide(300);
 			$.ajax
 			({
 				type: "GET",
@@ -375,8 +375,8 @@ $(document).ready(function()
 					else
 					{
 						Post--; 
-						$("div[id='download_message']").slideUp(300);
-						$("input[id='Update']").slideDown(300);
+						$("div[id='download_message']").hide(300);
+						$("input[id='Update']").show();
 					}				
 				}
 			});	
