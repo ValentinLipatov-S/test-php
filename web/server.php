@@ -199,23 +199,23 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];		
 						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
-							$result = pg_query($query) or die(pg_last_error());
-							if(pg_num_rows($result) > 0)
+						$result = pg_query($query) or die(pg_last_error());
+						if(pg_num_rows($result) > 0)
+						{
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
 							{
-								$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-								if($line["chatroom_password"] == $_GET['chatroom_password'])
-								{
-									echo "SUCCESS<-msg->Chat is opening.";
-								}
-								else
-								{
-									echo "ERROR<-msg->Incorrect password.";
-								}
+								echo "SUCCESS<-msg->Chat is opening.";
 							}
 							else
 							{
-								echo "ERROR<-msg->error autorization.";
+									echo "ERROR<-msg->Incorrect password.";
 							}
+						}
+						else
+						{
+							echo "ERROR<-msg->error autorization.";
+						}
 					}
 				}
 			}
@@ -253,7 +253,7 @@ switch ($_GET["comand"])
 	
 	case "set_message":
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_text"]))
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_text"]) and isset($_GET["chatroom_password"]))
         {
 			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
 			{
@@ -268,10 +268,19 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
 						
-						$val = $line['user_id'];
-						$query = "INSERT INTO messages (user_id, chatroom_id, message_text) VALUES ('$val', '$_GET[chatroom_id]', '$_GET[message_text]')";
+						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
-						echo "SUCCESS";
+						if(pg_num_rows($result) > 0)
+						{
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
+							{
+								$val = $line['user_id'];
+								$query = "INSERT INTO messages (user_id, chatroom_id, message_text) VALUES ('$val', '$_GET[chatroom_id]', '$_GET[message_text]')";
+								$result = pg_query($query) or die(pg_last_error());
+								echo "SUCCESS";
+							}
+						}
 					}
 				}
 			}
@@ -280,7 +289,7 @@ switch ($_GET["comand"])
 	
 	case "get_message":
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_id"]))
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["message_id"]) and isset($_GET["chatroom_password"]))
         {
 			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
 			{
@@ -292,34 +301,42 @@ switch ($_GET["comand"])
 					if($line["user_password"] == $_GET["user_password"])
 					{
 						$person_id         = $line["user_id"];
-						
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
 						
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
-						$result = pg_query($query) or die(pg_last_error());						
-						$iterator = 1;
-						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
+						$result = pg_query($query) or die(pg_last_error());
+						if(pg_num_rows($result) > 0)
 						{
-							if($iterator == $_GET["message_id"])
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
 							{
-								$msg_text = $line['message_text'];
-								$val = $line['user_id'];
-								if($val != "" and $msg_text != "")
+								$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+								$result = pg_query($query) or die(pg_last_error());						
+								$iterator = 1;
+								while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
 								{
-									$query_1 = "SELECT * FROM users WHERE user_id='$val'";
-									$result_1 = pg_query($query_1) or die(pg_last_error());
-									$line_1 = pg_fetch_array($result_1, null, PGSQL_ASSOC);
-									
-									if($line_1['user_firstname'] != "" and $line_1['user_secondname'] != "")
+									if($iterator == $_GET["message_id"])
 									{
-										echo $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text;
+										$msg_text = $line['message_text'];
+										$val = $line['user_id'];
+										if($val != "" and $msg_text != "")
+										{
+											$query_1 = "SELECT * FROM users WHERE user_id='$val'";
+											$result_1 = pg_query($query_1) or die(pg_last_error());
+											$line_1 = pg_fetch_array($result_1, null, PGSQL_ASSOC);
+											
+											if($line_1['user_firstname'] != "" and $line_1['user_secondname'] != "")
+											{
+												echo $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text;
+											}
+										}
+										break;
 									}
-								}
-								break;
+									$iterator++;
+								}	
 							}
-							$iterator++;
-						}	
+						}
 					}
 				}
 			}
@@ -328,7 +345,7 @@ switch ($_GET["comand"])
 	
 	case "get_first_id_message":
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]))
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["chatroom_password"]))
         {
 			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
 			{
@@ -342,9 +359,18 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
 						$result = pg_query($query) or die(pg_last_error());
-						echo '1' . '<-id->' . pg_num_rows($result);
+						if(pg_num_rows($result) > 0)
+						{
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
+							{
+								$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+								$result = pg_query($query) or die(pg_last_error());
+								echo '1' . '<-id->' . pg_num_rows($result);
+							}
+						}
 					}
 				}
 			}
@@ -353,7 +379,7 @@ switch ($_GET["comand"])
 	
 	case "get_last_id_message":
 	{
-		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]))
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["chatroom_password"]))
         {
 			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
 			{
@@ -367,10 +393,19 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-										
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
-						$result = pg_query($query) or die(pg_last_error());						
-						echo $_GET["chatroom_id"] . "<-id->" . pg_num_rows($result);
+								
+						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
+						$result = pg_query($query) or die(pg_last_error());
+						if(pg_num_rows($result) > 0)
+						{
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
+							{	
+								$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+								$result = pg_query($query) or die(pg_last_error());						
+								echo $_GET["chatroom_id"] . "<-id->" . pg_num_rows($result);
+							}
+						}
 					}
 				}
 			}
