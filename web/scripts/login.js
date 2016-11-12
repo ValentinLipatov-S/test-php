@@ -163,6 +163,8 @@ $(document).ready(function()
 	{
 		$("div[id='ChatRooms']").slideDown(375);
 		$("div[id='download_chatroom']").slideDown(375);
+		var search = $("#Search_text").val();
+		$("#Search_text").val("");
 		$("#chatroom_append").empty();
 		$.ajax
 		({
@@ -173,7 +175,7 @@ $(document).ready(function()
 				comand: 'chatrooms_search', 
 				user_login: login,
 				user_password: password,
-				chatrooms_search_text: $("#Search_text").val()
+				chatrooms_search_text: search
 			},
 			success: function(msg)
 			{
@@ -251,14 +253,18 @@ $(document).ready(function()
 	var Max_Post = -1;
 	var Min_Post =  0;
 	var Post = -1;
-
+	
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
 		$("div[id='ChatRooms']").slideDown(375);
 		$("div[id='download_chatroom']").slideDown(375);
 		chatroom_id = $(this).attr("id");
+		
 		if($(this).prev().attr("id") == "Chatroom_connect_password_text")chatroom_password = $(this).prev().val();
 		else chatroom_password = "";
+		
+		$(this).prev().val("");
+		
 		$.ajax
 		({
 			type: "GET",
