@@ -416,8 +416,53 @@ switch ($_GET["comand"])
 	
 	
 	
+	case "change_firstname":
+    {
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["new_user_firstname"]))
+        {	
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			{
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $_GET["user_password"])
+					{
+						$person_id         = $line["user_id"];
+						$person_firstname  = $line["user_firstname"];
+						$person_secondname = $line["user_secondname"];		
+						$query = "UPDATE users SET user_firstname = '$_GET[new_user_firstname]' WHERE user_login = '$_GET[user_login]'";
+						echo $_GET["new_user_firstname"];						
+					}
+				}
+			}
+        }
+	}break;
 	
-	
+	case "change_secondname":
+    {
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["new_user_secondname"]))
+        {	
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			{
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $_GET["user_password"])
+					{
+						$person_id         = $line["user_id"];
+						$person_firstname  = $line["user_firstname"];
+						$person_secondname = $line["user_secondname"];		
+						$query = "UPDATE users SET user_secondname = '$_GET[new_user_secondname]' WHERE user_login = '$_GET[user_login]'";	
+						echo $_GET["new_user_secondname"];
+					}
+				}
+			}
+        }
+	}break;
 	
 
     case "query":
