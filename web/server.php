@@ -329,18 +329,18 @@ switch ($_GET["comand"])
 											if($line_1['user_firstname'] != "" and $line_1['user_secondname'] != "")
 											{
 												echo $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text;
-											}else echo 1;
-										}else echo 2;
+											}
+										}
 										break;
-									}else echo 3;
+									}
 									$iterator++;
 								}	
-							}else echo 4;
-						}else echo 5;
-					}else echo 6;
-				}else echo 7;
-			}else echo 8;
-        }else echo 9;
+							}
+						}
+					}
+				}
+			}
+        }
 	}break;
 	
 	case "get_first_id_message":
