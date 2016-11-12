@@ -251,22 +251,25 @@ $(document).ready(function()
 			},
 			success: function(msg) 
 			{ 
-				var arr = msg.split('<-id->');	
-			
-				console.log(msg);
-				Max_Post = arr[1];
-				Post = Max_Post;
+				if(msg.indexOf("<-id->") > -1)
+				{
+					var arr = msg.split('<-id->');	
 				
-				Min_Post =  arr[0];
-				Message_Timer();
-				$("#Update").click();
-				$("div[id='download_chat']").slideUp(300);
-				$("div[id='Autorization']").slideUp(300);
-				$("div[id='Profile']").slideUp(300);
-				$("div[id='ChatRooms']").slideUp(300);
-				$("div[id='Chat']").slideDown(300);
-				$("input[id='Exit_Button']").slideDown(300);
-				$("input[id='Chatmenu_Button']").slideDown(300);
+					console.log(msg);
+					Max_Post = arr[1];
+					Post = Max_Post;
+					
+					Min_Post =  arr[0];
+					Message_Timer();
+					$("#Update").click();
+					$("div[id='download_chat']").slideUp(300);
+					$("div[id='Autorization']").slideUp(300);
+					$("div[id='Profile']").slideUp(300);
+					$("div[id='ChatRooms']").slideUp(300);
+					$("div[id='Chat']").slideDown(300);
+					$("input[id='Exit_Button']").slideDown(300);
+					$("input[id='Chatmenu_Button']").slideDown(300);
+				}
 			}
 		});
        
