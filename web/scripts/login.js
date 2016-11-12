@@ -21,7 +21,7 @@ $(document).ready(function()
 			{
 				console.log(msg);
 				var arr = msg.split('<-msg->');
-				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+				$("#p_message").html(arr[0] + " : " + arr[1]);
 				if(arr[0] == "SUCCESS")
 				{	
 					login = user_login_now;
@@ -67,7 +67,7 @@ $(document).ready(function()
 				console.log(msg);
 				var arr = msg.split('<-msg->');
 				
-				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+				$("#p_message").html(arr[0] + " : " + arr[1]);
 				$("div[id='message']").slideDown(300);
 				$("div[id='download_autorization']").slideUp(300);
 				setTimeout(function() 
@@ -277,7 +277,7 @@ $(document).ready(function()
 					console.log(msg);
 					var arr = msg.split('<-msg->');
 					
-					$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+					$("#p_message").html(arr[0] + " : " + arr[1]);
 					$("div[id='message']").slideDown(300);
 					setTimeout(function() 
 					{
