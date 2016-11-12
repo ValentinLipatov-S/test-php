@@ -261,7 +261,12 @@ $(document).ready(function()
 					
 					Min_Post =  arr[0];
 					Message_Timer();
-					$("#Update").click();
+					
+					if(Post - Min_Post > -1)
+					{
+						$("#Update").click();
+						
+					}
 					$("div[id='download_chat']").slideUp(300);
 					$("div[id='Autorization']").slideUp(300);
 					$("div[id='Profile']").slideUp(300);
