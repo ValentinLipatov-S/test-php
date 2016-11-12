@@ -254,7 +254,7 @@ $(document).ready(function()
 
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
-
+		$("div[id='download_chat']").slideDown(300);
 		chatroom_id = $(this).attr("id");
 		if($(this).prev().attr("id") == "Chatroom_connect_password_text")chatroom_password = $(this).prev().val();
 		else chatroom_password = "";
@@ -296,9 +296,6 @@ $(document).ready(function()
 						$("input[id='Exit_Button']").slideDown(300);
 						$("input[id='Chatmenu_Button']").slideDown(300);
 						$("input[id='Update']").hide();
-						$("div[id='download_chat']").slideDown(300);
-				
-						
 						$.ajax
 						({
 							type: "GET",
