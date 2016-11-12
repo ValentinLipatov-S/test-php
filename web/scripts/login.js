@@ -361,6 +361,7 @@ $(document).ready(function()
 			({
 				type: "GET",
 				url: "server.php",
+				async: false;
 				data: 
 				{
 					comand: 'get_last_id_message',
