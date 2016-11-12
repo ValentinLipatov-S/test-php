@@ -295,7 +295,10 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
 						
-						echo 1;
+						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+						$result = pg_query($query) or die(pg_last_error());				
+						if(pg_num_rows($result) > 0)echo 1;
+						else 0;
 					}
 				}
 			}
@@ -321,12 +324,7 @@ switch ($_GET["comand"])
 										
 						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
 						$result = pg_query($query) or die(pg_last_error());						
-						$iterator = 1;
-						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
-						{
-							$iterator++;
-						}	
-						echo $iterator;
+						echo pg_num_rows($result);
 					}
 				}
 			}
