@@ -263,10 +263,10 @@ $(document).ready(function()
 						Min_Post =  arr[0];
 						Message_Timer();
 						
-						if(Post - Min_Post > -1)
+						if(Post - Min_Post >= 0)
 						{
-							$("#Update").click();	
-							console.log(" " + Post + " " + Min_Post + " ");
+							console.log("id - " + Post + " min - " + Min_Post + " ");
+							$("#Update").click();		
 						}
 						$("div[id='download_chat']").slideUp(300);
 						$("div[id='Autorization']").slideUp(300);
@@ -301,34 +301,40 @@ $(document).ready(function()
 				success: function(msg) 
 				{ 
 					console.log(msg);
-					if(msg > Max_Post)
+					var arr = msg.split('<-id->');	
+					if(arr[1] != "" && arr[0] != "")
 					{
-						
-						while(msg > Max_Post)
+						if(arr[0] == chatroom_id)
 						{
-							Max_Post++;
-							$.ajax
-							({
-								type: "GET",
-								url: "server.php",
-								data: 
+							if(arr[1] > Max_Post)
+							{
+								while(arr[1] > Max_Post)
 								{
-									comand: 'get_message',
-									message_id: Max_Post,
-									chatroom_id: chatroom_id,
-									user_login: login,
-									user_password: password
-								},
-								success: function(msg)
-								{	
-									console.log(msg);
-									var arr = msg.split('<:>');
-									if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
-									$("div[id = 'Post']").slideDown(300);
+									Max_Post++;
+									$.ajax
+									({
+										type: "GET",
+										url: "server.php",
+										data: 
+										{
+											comand: 'get_message',
+											message_id: Max_Post,
+											chatroom_id: chatroom_id,
+											user_login: login,
+											user_password: password
+										},
+										success: function(msg)
+										{	
+											console.log(msg);
+											var arr = msg.split('<:>');
+											if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
+											$("div[id = 'Post']").slideDown(300);
+										}
+									});	
 								}
-							});	
+							}
 						}
-					}
+					}	
 				}
 			}); 
 		},100);
