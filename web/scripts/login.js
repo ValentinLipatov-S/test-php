@@ -254,26 +254,28 @@ $(document).ready(function()
 				if(msg.indexOf("<-id->") > -1)
 				{
 					var arr = msg.split('<-id->');	
-				
-					console.log(msg);
-					Max_Post = arr[1];
-					Post = Max_Post;
-					
-					Min_Post =  arr[0];
-					Message_Timer();
-					
-					if(Post - Min_Post > -1)
+					if(arr[1] != "" && arr[0] != "")
 					{
-						$("#Update").click();	
-						console.log(" " + Post + " " + Min_Post + " ");
+						console.log(msg);
+						Max_Post = arr[1];
+						Post = Max_Post;
+						
+						Min_Post =  arr[0];
+						Message_Timer();
+						
+						if(Post - Min_Post > -1)
+						{
+							$("#Update").click();	
+							console.log(" " + Post + " " + Min_Post + " ");
+						}
+						$("div[id='download_chat']").slideUp(300);
+						$("div[id='Autorization']").slideUp(300);
+						$("div[id='Profile']").slideUp(300);
+						$("div[id='ChatRooms']").slideUp(300);
+						$("div[id='Chat']").slideDown(300);
+						$("input[id='Exit_Button']").slideDown(300);
+						$("input[id='Chatmenu_Button']").slideDown(300);
 					}
-					$("div[id='download_chat']").slideUp(300);
-					$("div[id='Autorization']").slideUp(300);
-					$("div[id='Profile']").slideUp(300);
-					$("div[id='ChatRooms']").slideUp(300);
-					$("div[id='Chat']").slideDown(300);
-					$("input[id='Exit_Button']").slideDown(300);
-					$("input[id='Chatmenu_Button']").slideDown(300);
 				}
 			}
 		});
