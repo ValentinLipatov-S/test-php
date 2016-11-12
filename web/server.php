@@ -253,11 +253,13 @@ switch ($_GET["comand"])
 						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
 						$msg_text = $line['message_text'];
 						$val = $line['user_id'];
-
-						$query = "SELECT * FROM users WHERE user_id='$val'";
-						$result = pg_query($query) or die(pg_last_error());
-						$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-						echo $line['user_firstname'] . ' ' . $line['user_secondname'] . '<:>' . $msg_text;
+						if($val != "")
+						{
+							$query = "SELECT * FROM users WHERE user_id='$val'";
+							$result = pg_query($query) or die(pg_last_error());
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							echo $line['user_firstname'] . ' ' . $line['user_secondname'] . '<:>' . $msg_text;
+						}
 					}
 				}
 			}
