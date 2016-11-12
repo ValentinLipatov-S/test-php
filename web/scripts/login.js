@@ -591,7 +591,14 @@ $(document).ready(function()
 	{
 		if (e.which == 13) $('#Search').click();
 	});
-	  
+	$('#Change_Surname_Text').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Change_Surname').click();
+	});
+	$('#Change_Name_Text').keydown(function (e) 
+	{
+		if (e.which == 13) $('#Change_Name').click();
+	});
 	
 	
 		
