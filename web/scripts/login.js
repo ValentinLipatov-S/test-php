@@ -43,6 +43,7 @@ $(document).ready(function()
 				}
 				else
 				{
+					$("#p_message").html(arr[0] + " : " + arr[1]);
 					$("div[id='message']").slideDown(375);
 					$("div[id='download_autorization']").slideUp(375);
 					setTimeout(function() 
