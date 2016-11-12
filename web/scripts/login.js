@@ -378,7 +378,7 @@ $(document).ready(function()
 					{
 						Post--; 
 						$("div[id='download_message']").hide();
-						$("input[id='Update']").show();
+						if(Post === "" || Post - Min_Post > -1)$("input[id='Update']").show();
 					}				
 				}
 			});	
