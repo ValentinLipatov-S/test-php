@@ -294,11 +294,8 @@ switch ($_GET["comand"])
 						$person_id         = $line["user_id"];
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];	
-						
-						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
-						$result = pg_query($query) or die(pg_last_error());				
-						if(pg_num_rows($result) > 0)echo 1;
-						else 0;
+		
+						echo 1;
 					}
 				}
 			}
