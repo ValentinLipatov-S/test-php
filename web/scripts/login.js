@@ -343,13 +343,13 @@ $(document).ready(function()
 	{
 		if(Post === "" || Post - Min_Post < 0)
 		{
-			$("div[id='download_message']").hide(300);
-			$("input[id='Update']").hide(300);
+			$("div[id='download_message']").hide();
+			$("input[id='Update']").hide();
 		}
 		else
 		{
-			$("div[id='download_message']").show(300);
-			$("input[id='Update']").hide(300);
+			$("div[id='download_message']").show();
+			$("input[id='Update']").hide();
 			$.ajax
 			({
 				type: "GET",
@@ -368,14 +368,14 @@ $(document).ready(function()
 					if(arr[1] != "" && msg !="")
 					{
 						$('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
-						$("div[id = 'Post']").slideDown(300);	
+						$("div[id = 'Post']").show(300);	
 						Start--;
 					}
 					if(Start > Stop){Post--; Update();}
 					else
 					{
 						Post--; 
-						$("div[id='download_message']").hide(300);
+						$("div[id='download_message']").hide();
 						$("input[id='Update']").show();
 					}				
 				}
