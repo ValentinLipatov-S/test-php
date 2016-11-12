@@ -196,7 +196,7 @@ switch ($_GET["comand"])
 						$person_firstname  = $line["user_firstname"];
 						$person_secondname = $line["user_secondname"];		
 						
-						if($_GET["chatroom_id"] != "" and $_GET["chatroom_password"] != "")
+						if($_GET["chatroom_id"] != "")
 						{
 							$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
 							$result = pg_query($query) or die(pg_last_error());
@@ -216,6 +216,10 @@ switch ($_GET["comand"])
 							{
 								echo "ERROR<-msg->error autorization.";
 							}
+						}
+						else
+						{
+							echo "ERROR<-msg->null element";
 						}
 					}
 				}
