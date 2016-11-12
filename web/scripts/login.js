@@ -265,7 +265,7 @@ $(document).ready(function()
 					if(Post - Min_Post > -1)
 					{
 						$("#Update").click();	
-						console.log(" "Post + " " + Min_Post + " ");
+						console.log(" " + Post + " " + Min_Post + " ");
 					}
 					$("div[id='download_chat']").slideUp(300);
 					$("div[id='Autorization']").slideUp(300);
