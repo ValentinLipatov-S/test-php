@@ -179,7 +179,49 @@ switch ($_GET["comand"])
 			}
         }
     } break;
-
+	case "chatroom_connect":
+	{
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["chatroom_password"]))
+        {	
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			{
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $_GET["user_password"])
+					{
+						$person_id         = $line["user_id"];
+						$person_firstname  = $line["user_firstname"];
+						$person_secondname = $line["user_secondname"];		
+						
+						if($_GET["chatroom_id"] != "" and $_GET["chatroom_password"] != "")
+						{
+							$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
+							$result = pg_query($query) or die(pg_last_error());
+							if(pg_num_rows($result) > 0)
+							{
+								$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+								if($line["user_password"] == $_GET['user_password'])
+								{
+									echo "SUCCESS<-msg->Chat is opening.";
+								}
+								else
+								{
+									echo "ERROR<-msg->Incorrect password.";
+								}
+							}
+							else
+							{
+								echo "ERROR<-msg->error autorization.";
+							}
+						}
+					}
+				}
+			}
+        }
+	}break;
 	case "chatroom_create": 
     {
         if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_name"]) and isset($_GET["chatroom_password"]))
