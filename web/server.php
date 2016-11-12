@@ -166,7 +166,7 @@ switch ($_GET["comand"])
 						$text = "";
 						$query = "SELECT * FROM chatrooms";
 						$result = pg_query($query) or die(pg_last_error());
-						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) chatroom_password
+						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC))
 						{
 							$pas_chat;
 							if($line["chatroom_password"] != "")$pas_chat = "private";
