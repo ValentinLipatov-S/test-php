@@ -3,21 +3,30 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" type="text/css" href="style/download.css">
 		<script src = "scripts/jquery-3.1.1.js"></script>
 		<script src = "scripts/slider.js"></script>
 		<script src = "scripts/login.js"></script>
 		<title>Messanger</title>
 	</head>
-	<body>
+	<body style = "background: url(images/background.png) no-repeat; background-size: cover;">
 
 		<div id = "message" style = "display:none;"><p id = "p_message"></p></div>
 		
 		<input id = "Exit_Button" class = "Button"   type = "submit" value = "Exit" style = "display:none; width: 100%; background: #4d5369; font-weight: bold; color: white; margin-top:3px;"/>
 		<input id = "Chatmenu_Button" class = "Button" type = "submit" value = "Chatrooms" style = "display:none; font-weight: bold; color: #444; margin-top: 3px; width: 100%; background: #a3bbbb;"/>
 		
-		<div id = "Autorization" style = "margin-top: 3px; width: 100%;">	
-			<div id = "sub" style = "text-align: center;"><p style = " margin-top: 8px; margin-bottom: 8px; font-weight: bold; font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 20px;">Autorization</p></div>
-			<div id = "download_autorization" style = "display:none; text-align: center;"><img src = "images/download.gif"/></div>
+		<div id = "Autorization" style = "margin-top: 3px; width: 100%;">		
+			
+			<div id = "sub" style = "text-align: center; background: white;  margin-top: 3px;"><p style = "margin-top: 5px; margin-bottom: 5px; font-weight: bold; font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 20px;">Autorization</p></div>
+			
+			<div id = "sub" style = "text-align: center;  margin-top: 3px;"><p style = "font-weight: bold; font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 60px;">Society</p></div>
+			
+			
+			
+			<div id = "download_autorization" style = "display:none; text-align: center;"><div class="wrapper"><div class="cssload-loader"></div></div></div>
+			
+			
 			<div id = "Login_Registration" style = "width: 80%; margin: 0px auto;">
 				<div id = "Button">
 					<input class = "Button" id = "Slim"  type = "submit" value = "Login" style = "background: #ff7751;"/>
@@ -39,10 +48,47 @@
 				</div>	
 				<div id = "Button" style = "margin-top: 3px;">
 				<input class = "Button"  id = "Slim" type = "submit" value = "About" style = "background: #e4f06a;"/>
-					<div id = "Child" style = "display: none;  text-align: left; background: white; margin-top: 3px;">
-						<p style = "font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 16px; padding: 7px;">
-							Information...
-						</p>
+					<div id = "Child" style = "display: none;">
+						<div style = "text-align: left; background: white; margin-top: 3px;">
+							<p style = "font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 16px; padding: 7px;">
+								On the other hand, we denounce with righteous indignation and dislike men
+								who are so beguiled and demoralized by the charms of pleasure of the moment,
+								so blinded by desire, that they cannot foresee the pain and trouble that are
+								bound to ensue; and equal blame belongs to those who fail in their duty through 
+								weakness of will, which is the same as saying through shrinking from toil and pain. 
+								These cases are perfectly simple and easy to distinguish. 
+							</p>
+						</div>
+						<div style = "text-align: left; background: white; margin-top: 3px;">
+							<p style = "font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 16px; padding: 7px;">
+								In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we 
+								like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
+								and owing to the claims of duty or the obligations of business it will frequently occur that
+								pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds
+								in these matters to this principle of selection: he rejects pleasures to secure other greater 
+								pleasures, or else he endures pains to avoid worse pains
+							</p>
+						</div>
+						<div style = "text-align: left; background: white; margin-top: 3px;">
+							<p style = "font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 16px; padding: 7px;">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+								eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in 
+								culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+						</div>
+						<div style = "text-align: left; background: white; margin-top: 3px;">
+							<p style = "font: 12px 'Trebuchet MS', Arial, Tahoma, serif; color: #444; font-family: Helvetica; font-size: 16px; padding: 7px;">
+								On the other hand, we denounce with righteous indignation and dislike men
+								who are so beguiled and demoralized by the charms of pleasure of the moment,
+								so blinded by desire, that they cannot foresee the pain and trouble that are
+								bound to ensue; and equal blame belongs to those who fail in their duty through 
+								weakness of will, which is the same as saying through shrinking from toil and pain. 
+								These cases are perfectly simple and easy to distinguish. 
+							</p>
+						</div>
 					</div> 
 				</div>		
 			</div>
