@@ -322,7 +322,7 @@ switch ($_GET["comand"])
 										
 						$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
 						$result = pg_query($query) or die(pg_last_error());						
-						echo pg_num_rows($result);
+						echo $_GET["chatroom_id"] . "<-id->" . pg_num_rows($result);
 					}
 				}
 			}
