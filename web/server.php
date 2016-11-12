@@ -334,13 +334,13 @@ switch ($_GET["comand"])
 										break;
 									}else echo 3;
 									$iterator++;
-								}else echo 4;	
-							}else echo 5;
-						}else echo 6;
-					}else echo 7;
-				}else echo 8;
-			}else echo 9;
-        }else echo 10;
+								}	
+							}else echo 4;
+						}else echo 5;
+					}else echo 6;
+				}else echo 7;
+			}else echo 8;
+        }else echo 9;
 	}break;
 	
 	case "get_first_id_message":
