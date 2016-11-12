@@ -203,7 +203,7 @@ switch ($_GET["comand"])
 							if(pg_num_rows($result) > 0)
 							{
 								$line = pg_fetch_array($result, null, PGSQL_ASSOC);
-								if($line["user_password"] == $_GET['user_password'])
+								if($line["chatroom_password"] == $_GET['chatroom_password'])
 								{
 									echo "SUCCESS<-msg->Chat is opening.";
 								}
