@@ -4,7 +4,7 @@ $(document).ready(function()
 	var chatroom_password;
 	$('#Login').click(function()
 	{			
-		$("div[id='download_autorization']").slideDown(300);
+		$("div[id='download_autorization']").slideDown(500);
 		var user_login_now = $("#Login_Login").val();
 		var user_password_now = $("#Login_Password").val();
 		$.ajax
@@ -26,30 +26,30 @@ $(document).ready(function()
 				{	
 					login = user_login_now;
 					password = user_password_now;
-					$("div[id='message']").slideDown(300);
-					$("div[id='Autorization']").slideUp(300);
-					$("input[id='Exit_Button']").slideDown(300);
+					$("div[id='message']").slideDown(500);
+					$("div[id='Autorization']").slideUp(500);
+					$("input[id='Exit_Button']").slideDown(500);
 					setTimeout(function() 
 					{
-						$("div[id='message']").slideUp(300);	
-					}, 3000);
+						$("div[id='message']").slideUp(500);	
+					}, 5000);
 					AddChatRooms();					
 				}
 				else
 				{
-					$("div[id='message']").slideDown(300);
-					$("div[id='download_autorization']").slideUp(300);
+					$("div[id='message']").slideDown(500);
+					$("div[id='download_autorization']").slideUp(500);
 					setTimeout(function() 
 					{
-						$("div[id='message']").slideUp(300);	
-					}, 3000);
+						$("div[id='message']").slideUp(500);	
+					}, 5000);
 				}
 			}					 
 		});			
 	});
 	$('#Registartion').click(function()
 	{
-		$("div[id='download_autorization']").slideDown(300);
+		$("div[id='download_autorization']").slideDown(500);
 		$.ajax
 		({
 			type: "GET",
@@ -68,12 +68,12 @@ $(document).ready(function()
 				var arr = msg.split('<-msg->');
 				
 				$("#p_message").html(arr[0] + " : " + arr[1]);
-				$("div[id='message']").slideDown(300);
-				$("div[id='download_autorization']").slideUp(300);
+				$("div[id='message']").slideDown(500);
+				$("div[id='download_autorization']").slideUp(500);
 				setTimeout(function() 
 				{
-					$("div[id='message']").slideUp(300);	
-				}, 3000);
+					$("div[id='message']").slideUp(500);	
+				}, 5000);
 			}					 
 		});			
 	});
@@ -82,8 +82,8 @@ $(document).ready(function()
 	
 	function AddChatRooms()
 	{
-		$("div[id='ChatRooms']").slideDown(300);
-		$("div[id='download_chatroom']").slideDown(300);
+		$("div[id='ChatRooms']").slideDown(500);
+		$("div[id='download_chatroom']").slideDown(500);
 		$("#chatroom_append").empty();
 		$.ajax
 		({
@@ -111,7 +111,7 @@ $(document).ready(function()
 						'</div>').appendTo($("#chatroom_append"));
 						setTimeout(function() 
 						{
-							$("div[id = 'chat']").slideDown(300);		
+							$("div[id = 'chat']").slideDown(500);		
 						}, 100); 
 					}
 					else
@@ -123,11 +123,11 @@ $(document).ready(function()
 						'</div>').appendTo($("#chatroom_append"));
 						setTimeout(function() 
 						{
-							$("div[id = 'chat']").slideDown(300);		
+							$("div[id = 'chat']").slideDown(500);		
 						}, 100); 
 					}
 				}	
-				$("div[id='download_chatroom']").slideUp(300);
+				$("div[id='download_chatroom']").slideUp(500);
 			}
 		});			
 	}
@@ -135,7 +135,7 @@ $(document).ready(function()
 	{
 		if($("#Chatroom_name").val() != "")
 		{
-			$("div[id='download_chatroom']").slideDown(300);
+			$("div[id='download_chatroom']").slideDown(500);
 			$.ajax
 			({
 				type: "GET",
@@ -151,7 +151,7 @@ $(document).ready(function()
 				success: function(msg)
 				{
 					console.log(msg);
-					$("div[id='download_chatroom']").slideUp(300);
+					$("div[id='download_chatroom']").slideUp(500);
 					$("#Chatroom_name").val("");
 					AddChatRooms();
 				}					 
@@ -161,8 +161,8 @@ $(document).ready(function()
 	 
 	 $('#Search').click(function()
 	{
-		$("div[id='ChatRooms']").slideDown(300);
-		$("div[id='download_chatroom']").slideDown(300);
+		$("div[id='ChatRooms']").slideDown(500);
+		$("div[id='download_chatroom']").slideDown(500);
 		$("#chatroom_append").empty();
 		$.ajax
 		({
@@ -191,7 +191,7 @@ $(document).ready(function()
 						'</div>').appendTo($("#chatroom_append"));
 						setTimeout(function() 
 						{
-							$("div[id = 'chat']").slideDown(300);		
+							$("div[id = 'chat']").slideDown(500);		
 						}, 100); 
 					}
 					else
@@ -203,11 +203,11 @@ $(document).ready(function()
 						'</div>').appendTo($("#chatroom_append"));
 						setTimeout(function() 
 						{
-							$("div[id = 'chat']").slideDown(300);		
+							$("div[id = 'chat']").slideDown(500);		
 						}, 100); 
 					}
 				}	
-				$("div[id='download_chatroom']").slideUp(300);
+				$("div[id='download_chatroom']").slideUp(500);
 			}
 		});	
 	});
@@ -217,16 +217,16 @@ $(document).ready(function()
 	$('#Exit_Button').click(function()
 	{
 		clearInterval(Timer);	
-		$("div[id='download_autorization']").slideUp(300);
+		$("div[id='download_autorization']").slideUp(500);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
-		$("div[id='Autorization']").slideDown(300);
-		$("div[id='Profile']").slideUp(300);
-		$("div[id='ChatRooms']").slideUp(300);
-		$("div[id='Chat']").slideUp(300);
-		$("input[id='Exit_Button']").slideUp(300);
-		$("input[id='Chatmenu_Button']").slideUp(300);
-		$("input[id='Update']").slideUp(300);
+		$("div[id='Autorization']").slideDown(500);
+		$("div[id='Profile']").slideUp(500);
+		$("div[id='ChatRooms']").slideUp(500);
+		$("div[id='Chat']").slideUp(500);
+		$("input[id='Exit_Button']").slideUp(500);
+		$("input[id='Chatmenu_Button']").slideUp(500);
+		$("input[id='Update']").slideUp(500);
 		login = "" ;
 		password = ""; 
 		chatroom_id = "";
@@ -237,13 +237,13 @@ $(document).ready(function()
 		clearInterval(Timer);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
-		$("div[id='Autorization']").slideUp(300);
-		$("div[id='Profile']").slideUp(300);
-		$("div[id='ChatRooms']").slideDown(300);
-		$("div[id='Chat']").slideUp(300);
-		$("input[id='Exit_Button']").slideDown(300);
-		$("input[id='Chatmenu_Button']").slideUp(300);
-		$("input[id='Update']").slideUp(300);
+		$("div[id='Autorization']").slideUp(500);
+		$("div[id='Profile']").slideUp(500);
+		$("div[id='ChatRooms']").slideDown(500);
+		$("div[id='Chat']").slideUp(500);
+		$("input[id='Exit_Button']").slideDown(500);
+		$("input[id='Chatmenu_Button']").slideUp(500);
+		$("input[id='Update']").slideUp(500);
 		AddChatRooms();
 	});
 	
@@ -254,7 +254,7 @@ $(document).ready(function()
 
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
-		$("div[id='download_chat']").slideDown(300);
+		$("div[id='download_chat']").slideDown(500);
 		chatroom_id = $(this).attr("id");
 		if($(this).prev().attr("id") == "Chatroom_connect_password_text")chatroom_password = $(this).prev().val();
 		else chatroom_password = "";
@@ -278,23 +278,23 @@ $(document).ready(function()
 					var arr = msg.split('<-msg->');
 					
 					$("#p_message").html(arr[0] + " : " + arr[1]);
-					$("div[id='message']").slideDown(300);
+					$("div[id='message']").slideDown(500);
 					setTimeout(function() 
 					{
-						$("div[id='message']").slideUp(300);	
-					}, 3000);
+						$("div[id='message']").slideUp(500);	
+					}, 5000);
 					
 					if(arr[0] == "SUCCESS")
 					{
 						clearInterval(Timer);
 						$("#Post_Area").empty();
 						$("#chatroom_append").empty();
-						$("div[id='Autorization']").slideUp(300);
-						$("div[id='Profile']").slideUp(300);
-						$("div[id='ChatRooms']").slideUp(300);
-						$("div[id='Chat']").slideDown(300);
-						$("input[id='Exit_Button']").slideDown(300);
-						$("input[id='Chatmenu_Button']").slideDown(300);
+						$("div[id='Autorization']").slideUp(500);
+						$("div[id='Profile']").slideUp(500);
+						$("div[id='ChatRooms']").slideUp(500);
+						$("div[id='Chat']").slideDown(500);
+						$("input[id='Exit_Button']").slideDown(500);
+						$("input[id='Chatmenu_Button']").slideDown(500);
 						$("input[id='Update']").hide();
 						$.ajax
 						({
@@ -327,13 +327,13 @@ $(document).ready(function()
 											console.log("id - " + Post + " min - " + Min_Post + " ");
 											$("#Update").click();		
 										}
-										$("div[id='download_chat']").slideUp(300);
-										$("div[id='Autorization']").slideUp(300);
-										$("div[id='Profile']").slideUp(300);
-										$("div[id='ChatRooms']").slideUp(300);
-										$("div[id='Chat']").slideDown(300);
-										$("input[id='Exit_Button']").slideDown(300);
-										$("input[id='Chatmenu_Button']").slideDown(300);
+										$("div[id='download_chat']").slideUp(500);
+										$("div[id='Autorization']").slideUp(500);
+										$("div[id='Profile']").slideUp(500);
+										$("div[id='ChatRooms']").slideUp(500);
+										$("div[id='Chat']").slideDown(500);
+										$("input[id='Exit_Button']").slideDown(500);
+										$("input[id='Chatmenu_Button']").slideDown(500);
 									}
 								}
 							}
@@ -392,7 +392,7 @@ $(document).ready(function()
 											console.log(msg);
 											var arr = msg.split('<:>');
 											if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
-											$("div[id = 'Post']").slideDown(300);
+											$("div[id = 'Post']").slideDown(500);
 										}
 									});	
 								}
@@ -435,7 +435,7 @@ $(document).ready(function()
 					if(arr[1] != "" && msg !="")
 					{
 						$('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>').appendTo($("#Post_Area"));
-						$("div[id = 'Post']").show(300);	
+						$("div[id = 'Post']").show(500);	
 						Start--;
 					}
 					if(Start > Stop){Post--; Update();}
