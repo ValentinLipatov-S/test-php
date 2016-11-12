@@ -1,9 +1,9 @@
 $(document).ready(function()
 {	
 	var login, password, chatroom_id;
+	var chatroom_password;
 	$('#Login').click(function()
 	{			
-		$("div[id='message']").slideUp(300);
 		$("div[id='download_autorization']").slideDown(300);
 		var user_login_now = $("#Login_Login").val();
 		var user_password_now = $("#Login_Password").val();
@@ -44,7 +44,6 @@ $(document).ready(function()
 	});
 	$('#Registartion').click(function()
 	{
-		$("div[id='message']").slideUp(300); 
 		$("div[id='download_autorization']").slideDown(300);
 		$.ajax
 		({
@@ -114,7 +113,7 @@ $(document).ready(function()
 					{
 						$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
 						'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
-						'<input class = "Text" id = "Chatroom_connect_password_text" type = "text" placeholder = "Password" style = "width: 40%;" />' + 
+						'<input class = "Text" id = "Chatroom_connect_password_text" type = "password" placeholder = "Password" style = "width: 40%;" />' + 
 						'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
 						'</div>').appendTo($("#chatroom_append"));
 						setTimeout(function() 
@@ -127,10 +126,6 @@ $(document).ready(function()
 			}
 		});			
 	}
-	
-	
-	
-	
 	$('#Chatroom_create').click(function()
 	{
 		if($("#Chatroom_name").val() != "")
@@ -182,15 +177,30 @@ $(document).ready(function()
 				for(var i = 0; i < arr.length - 1; i++)
 				{
 					var arr_2 = arr[i].split('<-id->');
-					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
-					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
-					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
-					'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
-					'</div>').appendTo($("#chatroom_append"));
-				    setTimeout(function() 
+					if(arr_2[2] == "public")
 					{
-						$("div[id = 'chat']").slideDown(300);		
-					}, 100); 
+						$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+						'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+						'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
+						'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+						'</div>').appendTo($("#chatroom_append"));
+						setTimeout(function() 
+						{
+							$("div[id = 'chat']").slideDown(300);		
+						}, 100); 
+					}
+					else
+					{
+						$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+						'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+						'<input class = "Text" id = "Chatroom_connect_password_text" type = "password" placeholder = "Password" style = "width: 40%;" />' + 
+						'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+						'</div>').appendTo($("#chatroom_append"));
+						setTimeout(function() 
+						{
+							$("div[id = 'chat']").slideDown(300);		
+						}, 100); 
+					}
 				}	
 				$("div[id='download_chatroom']").slideUp(300);
 			}
@@ -239,87 +249,94 @@ $(document).ready(function()
 
 	$('body').on('click', '.ChatRoomsButton', function()
 	{		
-		clearInterval(Timer);
-		$("#Post_Area").empty();
-		$("#chatroom_append").empty();
-		$("div[id='Autorization']").slideUp(300);
-		$("div[id='Profile']").slideUp(300);
-		$("div[id='ChatRooms']").slideUp(300);
-		$("div[id='Chat']").slideDown(300);
-		$("input[id='Exit_Button']").slideDown(300);
-		$("input[id='Chatmenu_Button']").slideDown(300);
-		$("input[id='Update']").hide();
-		$("div[id='download_chat']").slideDown(300);
-	
-		chatroom_id = $(this).attr("id");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+		if($(this).prev().attr("id") == "Chatroom_connect_password_text")chatroom_password = $(this).prev().val();
+		else chatroom_password = "";
 		$.ajax
 		({
 			type: "GET",
 			url: "server.php",
 			data: 
 			{
-				comand: 'get_first_id_message',
+				comand: 'chatroom_connect',
 				chatroom_id: chatroom_id,
+				chatroom_password: chatroom_password,
 				user_login: login,
 				user_password: password
 			},
 			success: function(msg) 
-			{ 
-				if(msg.indexOf("<-id->") > -1)
+			{
+				console.log(msg);
+				var arr = msg.split('<-msg->');
+				
+				$("#p_message").html(arr[0] + ":<br>" + arr[1]);
+				$("div[id='message']").slideDown(300);
+				setTimeout(function() 
 				{
-					var arr = msg.split('<-id->');	
-					if(arr[1] != "" && arr[0] != "")
-					{
-						console.log(msg);
-						Max_Post = arr[1];
-						Post = Max_Post;
-						
-						Min_Post =  arr[0];
-						Message_Timer();
-						
-						if(Post - Min_Post >= 0)
+					$("div[id='message']").slideUp(300);	
+				}, 3000);
+				
+				if(arr[0] == "SUCCESS")
+				{
+					clearInterval(Timer);
+					$("#Post_Area").empty();
+					$("#chatroom_append").empty();
+					$("div[id='Autorization']").slideUp(300);
+					$("div[id='Profile']").slideUp(300);
+					$("div[id='ChatRooms']").slideUp(300);
+					$("div[id='Chat']").slideDown(300);
+					$("input[id='Exit_Button']").slideDown(300);
+					$("input[id='Chatmenu_Button']").slideDown(300);
+					$("input[id='Update']").hide();
+					$("div[id='download_chat']").slideDown(300);
+				
+					chatroom_id = $(this).attr("id");
+					
+					$.ajax
+					({
+						type: "GET",
+						url: "server.php",
+						data: 
 						{
-							console.log("id - " + Post + " min - " + Min_Post + " ");
-							$("#Update").click();		
+							comand: 'get_first_id_message',
+							chatroom_id: chatroom_id,
+							user_login: login,
+							user_password: password,
+							chatroom_password: chatroom_password
+						},
+						success: function(msg) 
+						{ 
+							if(msg.indexOf("<-id->") > -1)
+							{
+								var arr = msg.split('<-id->');	
+								if(arr[1] != "" && arr[0] != "")
+								{
+									console.log(msg);
+									Max_Post = arr[1];
+									Post = Max_Post;
+									
+									Min_Post =  arr[0];
+									Message_Timer();
+									
+									if(Post - Min_Post >= 0)
+									{
+										console.log("id - " + Post + " min - " + Min_Post + " ");
+										$("#Update").click();		
+									}
+									$("div[id='download_chat']").slideUp(300);
+									$("div[id='Autorization']").slideUp(300);
+									$("div[id='Profile']").slideUp(300);
+									$("div[id='ChatRooms']").slideUp(300);
+									$("div[id='Chat']").slideDown(300);
+									$("input[id='Exit_Button']").slideDown(300);
+									$("input[id='Chatmenu_Button']").slideDown(300);
+								}
+							}
 						}
-						$("div[id='download_chat']").slideUp(300);
-						$("div[id='Autorization']").slideUp(300);
-						$("div[id='Profile']").slideUp(300);
-						$("div[id='ChatRooms']").slideUp(300);
-						$("div[id='Chat']").slideDown(300);
-						$("input[id='Exit_Button']").slideDown(300);
-						$("input[id='Chatmenu_Button']").slideDown(300);
-					}
-				}
-			}
-		});
-       
+					});	
+				}		
+			}	
+		});     
 	});
 
 	var Timer;
@@ -336,7 +353,8 @@ $(document).ready(function()
 					comand: 'get_last_id_message',
 					chatroom_id: chatroom_id,
 					user_login: login,
-					user_password: password
+					user_password: password,
+					chatroom_password: chatroom_password
 				},
 				success: function(msg) 
 				{ 
@@ -361,7 +379,8 @@ $(document).ready(function()
 											message_id: Max_Post,
 											chatroom_id: chatroom_id,
 											user_login: login,
-											user_password: password
+											user_password: password,
+											chatroom_password: chatroom_password
 										},
 										success: function(msg)
 										{	
@@ -402,7 +421,8 @@ $(document).ready(function()
 					message_id: Post,
 					chatroom_id: chatroom_id,
 					user_login: login,
-					user_password: password
+					user_password: password,
+					chatroom_password: chatroom_password
 				},
 				success: function(msg)
 				{
@@ -442,7 +462,8 @@ $(document).ready(function()
 					message_text: $("#Post_Send_Text").val(),
 					chatroom_id: chatroom_id,
 					user_login: login,
-					user_password: password
+					user_password: password,
+					chatroom_password: chatroom_password
 				},
 				success: function(msg)
 				{
