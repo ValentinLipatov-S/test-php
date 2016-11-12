@@ -420,7 +420,7 @@ switch ($_GET["comand"])
     {
 		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["new_user_firstname"]))
         {	
-			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "" and $_GET["new_user_firstname"] != "")
 			{
 				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
 				$result = pg_query($query) or die(pg_last_error());
@@ -435,10 +435,10 @@ switch ($_GET["comand"])
 						$query = "UPDATE users SET user_firstname = '$_GET[new_user_firstname]' WHERE user_login = '$_GET[user_login]'";
 						$result = pg_query($query) or die(pg_last_error());				
 						echo $_GET["new_user_firstname"];						
-					}
-				}
-			}
-        }
+					}else echo "1";
+				}else echo "2";
+			}else echo "3";
+        }else echo "4";
 	}break;
 	
 	case "change_secondname":
