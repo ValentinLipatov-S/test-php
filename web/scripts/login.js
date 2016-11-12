@@ -284,7 +284,7 @@ $(document).ready(function()
 					{
 						$("div[id='message']").slideUp(375);	
 					}, 2000);
-					
+					$("div[id='download_chatroom']").slideUp(375);
 					if(arr[0] == "SUCCESS")
 					{
 						clearInterval(Timer);
@@ -297,6 +297,7 @@ $(document).ready(function()
 						$("input[id='Exit_Button']").slideDown(375);
 						$("input[id='Chatmenu_Button']").slideDown(375);
 						$("input[id='Update']").hide();
+						$("div[id='download_chat']").slideUp(375);
 						$.ajax
 						({
 							type: "GET",
