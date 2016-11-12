@@ -257,8 +257,8 @@ $(document).ready(function()
 			{
 				$('#Profile_Name').val(msg);
 				$('#download_profile').slideUp(375);
-			});	
-		
+			}
+		});		
 	});
 	
 	$('#Change_Surname').click(function()
@@ -279,8 +279,8 @@ $(document).ready(function()
 			{
 				$('#Profile_Surname').val(msg);
 				$('#download_profile').slideUp(375);
-			});	
-		
+			}	
+		});	
 	});
 	
 	$('#Chatmenu_Button').click(function()
