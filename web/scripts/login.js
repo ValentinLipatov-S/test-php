@@ -98,15 +98,30 @@ $(document).ready(function()
 				for(var i = 0; i < arr.length - 1; i++)
 				{
 					var arr_2 = arr[i].split('<-id->');
-					$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
-					'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
-					'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
-					'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
-					'</div>').appendTo($("#chatroom_append"));
-				    setTimeout(function() 
+					if(arr_2[2] == "public")
 					{
-						$("div[id = 'chat']").slideDown(300);		
-					}, 100); 
+						$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+						'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+						'<input class = "Button" id = "Chatroom_connect_password" type = "submit" value = "Public" style = "width: 40%; background: #e4f06a;" />' + 
+						'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+						'</div>').appendTo($("#chatroom_append"));
+						setTimeout(function() 
+						{
+							$("div[id = 'chat']").slideDown(300);		
+						}, 100); 
+					}
+					else
+					{
+						$('<div id = "chat" style = "width: 100%; display:none; margin-top: 3px;">' + 
+						'<input class = "Button" type = "submit" value = "' + arr_2[1] + '" style = "width: 40%; background: #7292ab;"/>' + 
+						'<input class = "Text" id = "Chatroom_connect_password_text" type = "text" placeholder = "Password" style = "width: 40%;" />' + 
+						'<input id = "' + arr_2[0] + '" class = "ChatRoomsButton" type = "submit" value = "Connect" style = "width: 20%; background: #f07797;"/>' + 
+						'</div>').appendTo($("#chatroom_append"));
+						setTimeout(function() 
+						{
+							$("div[id = 'chat']").slideDown(300);		
+						}, 100); 
+					}
 				}	
 				$("div[id='download_chatroom']").slideUp(300);
 			}
@@ -131,7 +146,7 @@ $(document).ready(function()
 					chatroom_name: $("#Chatroom_name").val(),
 					user_login: login,
 					user_password: password,
-					chatroom_password: 12345
+					chatroom_password: $('#Chatroom_password').val()
 				},
 				success: function(msg)
 				{
@@ -237,6 +252,31 @@ $(document).ready(function()
 		$("div[id='download_chat']").slideDown(300);
 	
 		chatroom_id = $(this).attr("id");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		$.ajax
 		({
@@ -454,9 +494,26 @@ $(document).ready(function()
 	});
 	  
 	
-	 
 	
-	
+		
+	$('#Enadle_Password').click(function()
+	{
+		if($('#Enadle_Password').val() == "Enable")
+		{
+			$("#Chatroom_password").css("background", "white");
+			$('#Chatroom_password').val("");
+			$('#Chatroom_password').removeAttr("disabled")
+			$('#Enadle_Password').val("Disable");
+		}
+		else 
+		{
+			$("#Chatroom_password").css("background", "gray");
+			$('#Chatroom_password').val("");
+			$('#Chatroom_password').attr('disabled', "disabled");
+			$('#Enadle_Password').val("Enable");
+		}
+		
+	});
 	
 	
 	
