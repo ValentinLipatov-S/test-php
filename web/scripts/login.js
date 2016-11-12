@@ -247,7 +247,6 @@ $(document).ready(function()
 	$('#Change_Name').click(function()
 	{
 		$('#download_profile').slideDown(375);
-		$('#Change_Name_Text').val("");
 		$.ajax
 		({
 			type: "GET",
@@ -261,6 +260,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
+				$('#Change_Name_Text').val("");
 				console.log(msg);
 				$('#Profile_Name').val(msg);
 				$('#download_profile').slideUp(375);
@@ -271,7 +271,6 @@ $(document).ready(function()
 	$('#Change_Surname').click(function()
 	{
 		$('#download_profile').slideDown(375);
-		$('#Change_Surname_Text').val(""); 
 		$.ajax
 		({
 			type: "GET",
@@ -285,6 +284,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
+				$('#Change_Surname_Text').val(""); 
 				console.log(msg);
 				$('#Profile_Surname').val(msg);
 				$('#download_profile').slideUp(375);
