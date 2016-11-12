@@ -138,7 +138,10 @@ switch ($_GET["comand"])
 						$result = pg_query($query) or die(pg_last_error());
 						while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
 						{
-							$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-id->" . $pas_chat ."<-name->
+							$pas_chat;
+							if($line["chatroom_password"] != "")$pas_chat = "private";
+							else $pas_chat = "public";
+							$text = $text . $line["chatroom_id"] . "<-id->" . $line["chatroom_name"] . "<-id->" . $pas_chat ."<-name->";
 						}
 						echo $text;		
 					}
