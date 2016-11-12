@@ -244,42 +244,29 @@ $(document).ready(function()
 			url: "server.php",
 			data: 
 			{
-				comand: 'get_last_id_message',
+				comand: 'get_first_id_message',
 				chatroom_id: chatroom_id,
 				user_login: login,
 				user_password: password
 			},
 			success: function(msg) 
 			{ 
+				var arr = msg.split('<-id->');	
+			
 				console.log(msg);
-				Max_Post = msg;
+				Max_Post = arr[1];
 				Post = Max_Post;
-				$.ajax
-				({
-					type: "GET",
-					url: "server.php",
-					data: 
-					{
-						comand: 'get_first_id_message',
-						chatroom_id: chatroom_id,
-						user_login: login,
-						user_password: password
-					},
-					success: function(msg) 
-					{ 
-						console.log(msg);
-						Min_Post = msg;
-						Message_Timer();
-						$("#Update").click();
-						$("div[id='download_chat']").slideUp(300);
-						$("div[id='Autorization']").slideUp(300);
-						$("div[id='Profile']").slideUp(300);
-						$("div[id='ChatRooms']").slideUp(300);
-						$("div[id='Chat']").slideDown(300);
-						$("input[id='Exit_Button']").slideDown(300);
-						$("input[id='Chatmenu_Button']").slideDown(300);
-					}
-				});
+				
+				Min_Post =  arr[0];
+				Message_Timer();
+				$("#Update").click();
+				$("div[id='download_chat']").slideUp(300);
+				$("div[id='Autorization']").slideUp(300);
+				$("div[id='Profile']").slideUp(300);
+				$("div[id='ChatRooms']").slideUp(300);
+				$("div[id='Chat']").slideDown(300);
+				$("input[id='Exit_Button']").slideDown(300);
+				$("input[id='Chatmenu_Button']").slideDown(300);
 			}
 		});
        
