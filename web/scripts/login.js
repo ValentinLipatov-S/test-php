@@ -233,7 +233,7 @@ $(document).ready(function()
 		$("div[id='Chat']").slideDown(300);
 		$("input[id='Exit_Button']").slideDown(300);
 		$("input[id='Chatmenu_Button']").slideDown(300);
-		$("input[id='Update']").slideDown(300);
+		$("input[id='Update']").slideUp(300);
 		$("div[id='download_chat']").slideDown(300);
 	
 		chatroom_id = $(this).attr("id");
