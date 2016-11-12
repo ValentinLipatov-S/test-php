@@ -27,7 +27,7 @@ $(document).ready(function()
 					var name = arr_2[0];
 					var surname = arr_2[1];
 					$("#p_message").html(arr[0] + " : Autorization user as " + name + " " + surname);
-					$('#Profile_Name').val(name]);
+					$('#Profile_Name').val(name);
 					$('#Profile_Surname').val(surname);
 					login = user_login_now;
 					password = user_password_now;
