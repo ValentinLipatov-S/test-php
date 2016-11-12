@@ -66,7 +66,7 @@ switch ($_GET["comand"])
 				}
 				else 
 				{
-					echo "ERROR<-msg->Length:<br>first name: 3 - 20;<br>second name: 3 - 20;<br>login name: 6 - 30;<br>password: 6 - 30;";
+					echo "ERROR<-msg->Length fields: 3 - 30 letters";
 				}
 			}
 			else
