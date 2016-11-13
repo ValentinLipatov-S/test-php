@@ -441,6 +441,84 @@ switch ($_GET["comand"])
         }
 	}break;
 	
+	
+	
+	
+	case "get_new_msg":
+	{
+		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["chatroom_id"]) and isset($_GET["chatroom_password"]) and isset($_GET["message_id"]))
+        {
+			if($_GET["user_login"] != "" and $_GET["user_password"] != "")
+			{
+				$query = "SELECT * FROM users WHERE user_login = '$_GET[user_login]' LIMIT 1";
+				$result = pg_query($query) or die(pg_last_error());
+				if(pg_num_rows($result) > 0)
+				{
+					$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+					if($line["user_password"] == $_GET["user_password"])
+					{
+						$person_id         = $line["user_id"];
+						$person_firstname  = $line["user_firstname"];
+						$person_secondname = $line["user_secondname"];	
+								
+						$query = "SELECT * FROM chatrooms WHERE chatroom_id = '$_GET[chatroom_id]' LIMIT 1";
+						$result = pg_query($query) or die(pg_last_error());
+						if(pg_num_rows($result) > 0)
+						{
+							$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+							if($line["chatroom_password"] == $_GET['chatroom_password'])
+							{	
+								$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+								$result = pg_query($query) or die(pg_last_error());						
+								if($_GET["message_id"] < pg_num_rows($result))
+								{
+									$text = "";
+									while(pg_num_rows($result) > $_GET["message_id"])
+									{
+										$_GET["message_id"] = $_GET["message_id"] + 1;
+										$query = "SELECT * FROM messages WHERE chatroom_id = '$_GET[chatroom_id]'";
+										$result = pg_query($query) or die(pg_last_error());						
+										$iterator = 1;
+										while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
+										{
+											if($iterator == $_GET["message_id"])
+											{
+												$msg_text = $line['message_text'];
+												$val = $line['user_id'];
+												if($val != "" and $msg_text != "")
+												{
+													$query_1 = "SELECT * FROM users WHERE user_id='$val'";
+													$result_1 = pg_query($query_1) or die(pg_last_error());
+													$line_1 = pg_fetch_array($result_1, null, PGSQL_ASSOC);
+													
+													if($line_1['user_firstname'] != "" and $line_1['user_secondname'] != "")
+													{
+														$text = $text . $line_1['user_firstname'] . ' ' . $line_1['user_secondname'] . '<:>' . $msg_text . '<-msg->';
+													}
+												}
+												break;
+											}
+											$iterator++;
+										}
+									}
+									echo $text;
+								}
+							}
+						}
+					}
+				}
+			}
+        }
+	}break;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	case "change_secondname":
     {
 		if(isset($_GET["user_login"]) and isset($_GET["user_password"]) and isset($_GET["new_user_secondname"]))
