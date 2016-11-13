@@ -447,9 +447,17 @@ $(document).ready(function()
 						$("div[id = 'Post']").slideDown(375);
 					}
 					console.log(msg);
-				}
-				work = false;
-			}
+					work = false;
+				}	
+			},
+			error: function (jqXhr, textStatus, errorThrown) 
+			{
+                alert("Ошибка '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
+            },
+            complete: function ()
+			{
+				
+            }
 		}); 
 			
 	}
