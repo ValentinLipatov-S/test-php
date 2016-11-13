@@ -10,9 +10,9 @@
 		<script type = "text/javascript">
 		$(document).ready(function()
 		{	
-			$('#Button').click(function()
+			$('#Text').keydown(function (e) 
 			{
-				if($("#Post_Send_Text").val() != "")
+				if($("#Text").val() != "")
 				{
 					$.ajax
 					({
@@ -27,7 +27,7 @@
 						{
 							console.log(msg);
 							$("#Text").val("");
-						    $('<p style = "color: green;">' + msg + '</p>').before($("#Window"));
+						    $('<p style = "color: green;">' + msg + '</p>').before($("#Text"));
 						}					 
 					});
 				}
