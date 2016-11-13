@@ -473,17 +473,14 @@ switch ($_GET["comand"])
 		{
 			$query = $_GET["text"];
 			$result = pg_query($query) or die(pg_last_error());
-			echo "\n";
 			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) 
 			{
-				echo "\t\n";
 				foreach ($line as $col_value) 
 				{
-					echo "\t\t$col_value\n";
+					echo "$col_value   ";
 				}
-				echo "\t\n";
+				echo "<br>";
 			}
-			echo "\n";
 		}
     }break;
 	
