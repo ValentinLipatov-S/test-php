@@ -462,8 +462,8 @@ $(document).ready(function()
 											success: function(msg)
 											{	
 												console.log(msg);
-												var arr = msg.split('<:>');
-												if(arr[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr[0] + '</b> : ' + arr[1] + '</p></div><br>');
+												var arr_1 = msg.split('<:>');
+												if(arr_1[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_1[0] + '</b> : ' + arr_1[1] + '</p></div><br>');
 												$("div[id = 'Post']").slideDown(375);
 											}
 										});	
