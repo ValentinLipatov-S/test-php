@@ -414,7 +414,7 @@ $(document).ready(function()
 	var Timer;
 	var flag = false;
 	var work = false;
-	function Message_Timer () 
+	$('#Load').click(function()
 	{
 		work = true;
 		$.ajax
@@ -451,8 +451,8 @@ $(document).ready(function()
 			}
 		}); 
 			
-	}
-	setInterval(function(){if(flag == true && work == false){Message_Timer();}},100);
+	});
+	//setInterval(function(){if(flag == true && work == false){Message_Timer();}},100);
 
 	var Stop = -1;
 	var Start = -1;
