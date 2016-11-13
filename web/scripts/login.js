@@ -437,7 +437,9 @@ $(document).ready(function()
 					{ 
 						flag = false;
 						console.log(msg);
-						var arr_1 = msg.split('<-msg->');
+						var arr = msg.split('<-post->');
+						Max_Post = arr[1];
+						var arr_1 = arr[0].split('<-msg->');
 						for(var i = 0; i < arr_1.length - 1; i++)
 						{
 							var arr_2 = arr_1[i].split('<:>');
