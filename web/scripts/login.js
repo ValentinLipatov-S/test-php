@@ -436,6 +436,11 @@ $(document).ready(function()
 					{ 
 						flag = false;
 						console.log(msg);
+						
+						
+						
+						
+						
 						var arr = msg.split('<-id->');	
 						if(arr[1] != "" && arr[0] != "")
 						{
@@ -443,14 +448,20 @@ $(document).ready(function()
 							{
 								if(arr[1] > Max_Post)
 								{
+									alert(3);
 									while(arr[1] > Max_Post)
 									{
+										alert(4);
 										Max_Post++;
 										get_msg_timer();
 									}
 								}
 							}
 						}	
+						
+						
+						
+						
 					}
 				}); 
 			}
