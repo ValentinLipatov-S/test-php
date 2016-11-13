@@ -4,6 +4,9 @@
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<script src = "scripts/jquery-3.1.1.js"></script>
 		<title>Query</title>
+		<style>
+		input:focus { outline: none; }
+		</style>
 		<script type = "text/javascript">
 		$(document).ready(function()
 		{	
@@ -22,8 +25,9 @@
 						},
 						success: function(msg)
 						{
+							console.log(msg);
 							$("#Text").val("");
-							$('<p style = "color: green; font: Consolas; font-size: 10px;">' + msg + '</p>').appendTo($("#Window"));
+						    $('<p style = "color: green;">' + msg + '</p>').before($("#Window"));
 						}					 
 					});
 				}
@@ -31,10 +35,10 @@
 		});
 		</script>
 	</head>
-	<body style = "background: black; margin: 0px;">
+	<body style = "background: black; margin: 0px;  font: Consolas; font-size: 10px;">
 		<div id = "Window" style = "overflow: auto; width: 100%; height: 95%;">
 		
-		</div>
-		<input id = "Text" type = "text" placeholder = "Request" style = "width: 80%; height: 5%; border: 0px; display: inline-table; padding-left: 10px;"/><input id = "Button" type = "submit" value = "Send" style = "width: 20%; height: 5%; border: 0px; display: inline-table;"/>
+		<input id = "Text" type = "text" placeholder = "Request" style = "background: black; color: white; width: 100%; border: 0px; display: inline-table; padding: 10px;"/>
+		</div>	
 	</body>
 </html>
