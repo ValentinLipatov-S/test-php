@@ -438,6 +438,7 @@ $(document).ready(function()
 						if(msg != "")
 						{
 							var arr_1 = msg.split('<-msg->');
+							msgalert();
 							for(var i = 0; i < arr_1.length - 1; i++)
 							{
 								alert(1);
@@ -462,6 +463,11 @@ $(document).ready(function()
 				}); 
 			}
 		},100);
+	}
+	
+	function msgalert()
+	{
+		alert(123);
 	}
 
 	var Stop = -1;
