@@ -442,7 +442,10 @@ $(document).ready(function()
 							{
 								Max_Post++;
 								var arr_2 = arr_1[i].split('<:>');
-								if(arr_2[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+								if(arr_2[1] != "")
+								{
+									$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+								}
 								$("div[id = 'Post']").slideDown(375);
 							}
 							flag = false;
