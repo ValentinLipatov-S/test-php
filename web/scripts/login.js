@@ -448,10 +448,7 @@ $(document).ready(function()
 					}
 					console.log(msg);
 				}
-				setTimeout(function() 
-				{
-					if(flag == true)Message_Timer();		
-				}, 100);
+				if(flag == true)Message_Timer();		
 			}
 		}); 
 			
