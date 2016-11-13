@@ -440,18 +440,20 @@ $(document).ready(function()
 						
 						
 						
-						
+						alert(1);
 						var arr = msg.split('<-id->');	
 						if(arr[1] != "" && arr[0] != "")
 						{
+							alert(2);
 							if(arr[0] == chatroom_id)
 							{
+								alert(3);
 								if(arr[1] > Max_Post)
 								{
-									alert(3);
+									alert(4);
 									while(arr[1] > Max_Post)
 									{
-										alert(4);
+										alert(5);
 										Max_Post++;
 										get_msg_timer();
 									}
@@ -472,7 +474,7 @@ $(document).ready(function()
 	
 	function get_msg_timer()
 	{
-		alert(1);
+		alert(6);
 		$.ajax
 		({
 			type: "GET",
@@ -488,7 +490,7 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{	
-				alert(2);
+				alert(7);
 				console.log(msg);
 				var arr_1 = msg.split('<:>');
 				if(arr_1[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_1[0] + '</b> : ' + arr_1[1] + '</p></div><br>');
