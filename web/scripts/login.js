@@ -579,7 +579,7 @@ $(document).ready(function()
 	});
 	
 	
-	$('#Load').keydown(function (e) 
+	$('#Load').click(function()
 	{
 		$.ajax
 		({
@@ -613,7 +613,7 @@ $(document).ready(function()
 				}	
 			}
 		});
-	}
+	});
 		
 	$('#Enadle_Password').click(function()
 	{
