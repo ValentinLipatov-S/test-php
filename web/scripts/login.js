@@ -462,7 +462,7 @@ $(document).ready(function()
 						chatroom_password: chatroom_password,
 						message_id: Max_Post
 					},
-					success: msgalert(msg);
+					success: msgalert(msg)
 				}); 
 			}
 		},100);
