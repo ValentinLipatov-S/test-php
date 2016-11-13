@@ -501,7 +501,7 @@ switch ($_GET["comand"])
 											$iterator++;
 										}
 									}
-									echo $text . '<-post->' . $_GET["message_id"];
+									echo $text;
 								}else echo "1";
 							}else echo "2";
 						}else echo "3";
