@@ -410,6 +410,27 @@ $(document).ready(function()
 		});     
 	});
 
+	var msgalert = function(msg)
+	{
+		var arr_1 = msg.split('<-msg->');
+		for(var i = 0; i < arr_1.length - 1; i++)
+		{
+			alert(1);
+			Max_Post++;
+			var arr_2 = arr_1[i].split('<:>');
+			if(arr_2[1] != "")
+			{
+				alert(2);
+				$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+			}
+			$("div[id = 'Post']").slideDown(375);
+		}
+		flag = false;
+		console.log(msg);
+	};
+	
+	
+	
 	var Timer;
 	var flag = false;
 	function Message_Timer () 
@@ -450,24 +471,7 @@ $(document).ready(function()
 		},100);
 	}
 	
-	function msgalert(msg)
-	{
-		var arr_1 = msg.split('<-msg->');
-		for(var i = 0; i < arr_1.length - 1; i++)
-		{
-			alert(1);
-			Max_Post++;
-			var arr_2 = arr_1[i].split('<:>');
-			if(arr_2[1] != "")
-			{
-				alert(2);
-				$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
-			}
-			$("div[id = 'Post']").slideDown(375);
-		}
-		flag = false;
-		console.log(msg);
-	}
+	
 
 	var Stop = -1;
 	var Start = -1;
