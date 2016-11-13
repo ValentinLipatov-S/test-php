@@ -579,6 +579,41 @@ $(document).ready(function()
 	});
 	
 	
+	$('#Load').keydown(function (e) 
+	{
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'get_new_msg',
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password,
+				chatroom_password: chatroom_password,
+				message_id: Max_Post
+			},
+			success: function(msg)
+			{
+				if(msg != "")
+				{
+					var arr_1 = msg.split('<-msg->');
+					for(var i = 0; i < arr_1.length - 1; i++)
+					{
+						Max_Post++;
+						var arr_2 = arr_1[i].split('<:>');
+						if(arr_2[1] != "")
+						{
+							$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+						}
+						$("div[id = 'Post']").slideDown(375);
+					}
+					console.log(msg);
+				}	
+			}
+		});
+	}
 		
 	$('#Enadle_Password').click(function()
 	{
