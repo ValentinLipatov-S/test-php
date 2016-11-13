@@ -225,7 +225,7 @@ $(document).ready(function()
 	
 	$('#Exit_Button').click(function()
 	{
-		clearInterval(Timer);	
+		flag = false;	
 		$("div[id='download_autorization']").slideUp(375);
 		$("div[id='Profile']").slideUp(375);
 		$("#Post_Area").empty();
@@ -294,7 +294,7 @@ $(document).ready(function()
 	
 	$('#Chatmenu_Button').click(function()
 	{
-		clearInterval(Timer);
+		flag = false;
 		$("div[id='Profile']").slideDown(375);
 		$("#Post_Area").empty();
 		$("#chatroom_append").empty();
@@ -351,7 +351,7 @@ $(document).ready(function()
 					$("div[id='download_chatroom']").slideUp(375);
 					if(arr[0] == "SUCCESS")
 					{
-						clearInterval(Timer);
+						flag = false;
 						$("#Post_Area").empty();
 						$("#chatroom_append").empty();
 						$("div[id='Autorization']").slideUp(375);
@@ -386,6 +386,7 @@ $(document).ready(function()
 										Post = Max_Post;
 										
 										Min_Post =  arr[0];
+										flag = true;
 										Message_Timer();
 										
 										if(Post - Min_Post >= 0)
@@ -414,55 +415,46 @@ $(document).ready(function()
 	var flag = false;
 	function Message_Timer () 
 	{
-		flag = false;
-		Timer = setInterval(function () 
-		{
-			if(flag == false)
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
 			{
-				flag = true;
-				$.ajax
-				({
-					type: "GET",
-					url: "server.php",
-					data: 
+				comand: 'get_new_msg',
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password,
+				chatroom_password: chatroom_password,
+				message_id: Max_Post
+			},
+			success: function(msg)
+			{
+				if(msg.indexOf('<-msg->') > -1)
+				{
+					alert(msg);
+					var arr_1 = msg.split('<-msg->');
+					for(var i = 0; i < arr_1.length - 1; i++)
 					{
-						comand: 'get_new_msg',
-						chatroom_id: chatroom_id,
-						user_login: login,
-						user_password: password,
-						chatroom_password: chatroom_password,
-						message_id: Max_Post
-					},
-					success: function(msg)
-					{
-						if(msg.indexOf('<-msg->') > -1)
+						alert(1);
+						Max_Post++;
+						var arr_2 = arr_1[i].split('<:>');
+						if(arr_2[1] != "")
 						{
-							alert(msg);
-							var arr_1 = msg.split('<-msg->');
-							for(var i = 0; i < arr_1.length - 1; i++)
-							{
-								alert(1);
-								Max_Post++;
-								var arr_2 = arr_1[i].split('<:>');
-								if(arr_2[1] != "")
-								{
-									alert(2);
-									$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
-								}
-								$("div[id = 'Post']").slideDown(375);
-							}
-							flag = false;
-							console.log(msg);
+							alert(2);
+							$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
 						}
-						else 
-						{
-							flag = false;
-							console.log(msg);
-						}
+						$("div[id = 'Post']").slideDown(375);
 					}
-				}); 
+					console.log(msg);
+				}
+				setTimeout(function() 
+				{
+					if(flag == true)Message_Timer();		
+				}, 100);
 			}
-		},100);
+		}); 
+			
 	}
 	
 	
