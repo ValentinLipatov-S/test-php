@@ -12,24 +12,27 @@
 		{	
 			$('#Text').keydown(function (e) 
 			{
-				if($("#Text").val() != "")
-				{
-					$.ajax
-					({
-						type: "GET",
-						url: "server.php",
-						data: 
-						{
-							comand: 'query', 
-							text: $('#Text').val()
-						},
-						success: function(msg)
-						{
-							console.log(msg);
-							$("#Text").val("");
-						    $('<p style = "color: green;">' + msg + '</p>').before($("#Text"));
-						}					 
-					});
+			if (e.which == 13)
+			{
+					if($("#Text").val() != "")
+					{
+						$.ajax
+						({
+							type: "GET",
+							url: "server.php",
+							data: 
+							{
+								comand: 'query', 
+								text: $('#Text').val()
+							},
+							success: function(msg)
+							{
+								console.log(msg);
+								$("#Text").val("");
+								$('<p style = "color: green;">' + msg + '</p>').before($("#Text"));
+							}					 
+						});
+					}
 				}
 			});
 		});
