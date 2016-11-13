@@ -432,9 +432,9 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
-				$("#Post_Area").prepend(msg);
-				if(msg.indexOf('<-msg->') > -1)
+				if(msg != "")
 				{
+					$("#Post_Area").prepend(msg);
 					var arr_1 = msg.split('<-msg->');
 					for(var i = 0; i < arr_1.length - 1; i++)
 					{
