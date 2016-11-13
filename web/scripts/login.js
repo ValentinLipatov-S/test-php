@@ -450,13 +450,9 @@ $(document).ready(function()
 					work = false;
 				}	
 			},
-			error: function (jqXhr, textStatus, errorThrown) 
+			error: function () 
 			{
-                alert("Ошибка '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
-            },
-            complete: function ()
-			{
-				
+                alert("Ошибка");
             }
 		}); 
 			
