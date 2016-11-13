@@ -413,8 +413,10 @@ $(document).ready(function()
 
 	var Timer;
 	var flag = false;
+	var work = false;
 	function Message_Timer () 
 	{
+		work = true;
 		$.ajax
 		({
 			type: "GET",
@@ -445,13 +447,12 @@ $(document).ready(function()
 					}
 					console.log(msg);
 				}
-				if(flag == true)Message_Timer();		
+				work = false;
 			}
 		}); 
 			
 	}
-	
-	
+	setInterval(function(){if(flag == true && work == false)Message_Timer();},100);
 
 	var Stop = -1;
 	var Start = -1;
