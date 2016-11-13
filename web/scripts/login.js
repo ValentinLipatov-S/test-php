@@ -409,38 +409,6 @@ $(document).ready(function()
 			}
 		});     
 	});
-	
-	function get_msg_timer()
-	{
-		$.ajax
-		({
-			type: "GET",
-			url: "server.php",
-			data: 
-			{
-				comand: 'get_message',
-				message_id: Max_Post,
-				chatroom_id: chatroom_id,
-				user_login: login,
-				user_password: password,
-				chatroom_password: chatroom_password
-			},
-			success: function(msg)
-			{	
-				console.log(msg);
-				var arr_1 = msg.split('<:>');
-				if(arr_1[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_1[0] + '</b> : ' + arr_1[1] + '</p></div><br>');
-				$("div[id = 'Post']").slideDown(375);
-			}
-		});	
-	}
-	
-	
-	
-	
-	
-	
-	
 
 	var Timer;
 	var flag = false;
@@ -488,6 +456,41 @@ $(document).ready(function()
 			}
 		},100);
 	}
+	
+	
+	
+	function get_msg_timer()
+	{
+		alert(1);
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'get_message',
+				message_id: Max_Post,
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password,
+				chatroom_password: chatroom_password
+			},
+			success: function(msg)
+			{	
+				alert(2);
+				console.log(msg);
+				var arr_1 = msg.split('<:>');
+				if(arr_1[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_1[0] + '</b> : ' + arr_1[1] + '</p></div><br>');
+				$("div[id = 'Post']").slideDown(375);
+			}
+		});	
+	}
+	
+	
+	
+	
+	
+	
 	var Stop = -1;
 	var Start = -1;
 	function Update ()
