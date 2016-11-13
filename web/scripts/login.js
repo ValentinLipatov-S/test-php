@@ -446,8 +446,8 @@ $(document).ready(function()
 						$("div[id = 'Post']").slideDown(375);
 					}
 					console.log(msg);
-					work = false;
 				}	
+				work = false;
 			}
 		}); 
 			
