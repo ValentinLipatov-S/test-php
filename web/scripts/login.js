@@ -426,84 +426,30 @@ $(document).ready(function()
 					url: "server.php",
 					data: 
 					{
-						comand: 'get_last_id_message',
+						comand: 'get_new_msg',
 						chatroom_id: chatroom_id,
 						user_login: login,
 						user_password: password,
-						chatroom_password: chatroom_password
+						chatroom_password: chatroom_password,
+						message_id: Max_Post
 					},
 					success: function(msg) 
 					{ 
 						flag = false;
 						console.log(msg);
-						
-						
-						
-						
-						alert(1);
-						var arr = msg.split('<-id->');	
-						if(arr[1] != "" && arr[0] != "")
+						var arr_1 = msg.split('<-msg->');
+						for(var i = 0; i < arr_1.length - 1; i++)
 						{
-							alert(2);
-							if(arr[0] == chatroom_id)
-							{
-								alert(3);
-								if(arr[1] > Max_Post)
-								{
-									alert(4);
-									while(arr[1] > Max_Post)
-									{
-										alert(5);
-										Max_Post++;
-										get_msg_timer();
-									}
-								}
-							}
-						}	
-						
-						
-						
-						
+							var arr_2 = arr_1.split('<:>');
+							if(arr_2[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+							$("div[id = 'Post']").slideDown(375);
+						}
 					}
 				}); 
 			}
 		},100);
 	}
-	
-	
-	
-	function get_msg_timer()
-	{
-		alert(6);
-		$.ajax
-		({
-			type: "GET",
-			url: "server.php",
-			data: 
-			{
-				comand: 'get_message',
-				message_id: Max_Post,
-				chatroom_id: chatroom_id,
-				user_login: login,
-				user_password: password,
-				chatroom_password: chatroom_password
-			},
-			success: function(msg)
-			{	
-				alert(7);
-				console.log(msg);
-				var arr_1 = msg.split('<:>');
-				if(arr_1[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_1[0] + '</b> : ' + arr_1[1] + '</p></div><br>');
-				$("div[id = 'Post']").slideDown(375);
-			}
-		});	
-	}
-	
-	
-	
-	
-	
-	
+
 	var Stop = -1;
 	var Start = -1;
 	function Update ()
