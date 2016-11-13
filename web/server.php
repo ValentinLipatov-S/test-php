@@ -502,13 +502,13 @@ switch ($_GET["comand"])
 										}
 									}
 									echo $text;
-								}else echo "1";
-							}else echo "2";
-						}else echo "3";
-					}else echo "4";
-				}else echo "5";
-			}else echo "6";
-        }else echo "7";
+								}
+							}
+						}
+					}
+				}
+			}
+        }
 	}break;
 	
 	
