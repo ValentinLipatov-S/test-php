@@ -416,7 +416,6 @@ $(document).ready(function()
 	var work = false;
 	function Message_Timer () 
 	{
-		alert(1);
 		work = true;
 		$.ajax
 		({
@@ -433,7 +432,6 @@ $(document).ready(function()
 			},
 			success: function(msg)
 			{
-				alert(2);
 				if(msg.indexOf('<-msg->') > -1)
 				{
 					alert(3);
