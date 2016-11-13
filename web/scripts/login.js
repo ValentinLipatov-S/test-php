@@ -412,21 +412,29 @@ $(document).ready(function()
 
 	var msgalert = function(msg)
 	{
-		var arr_1 = msg.split('<-msg->');
-		for(var i = 0; i < arr_1.length - 1; i++)
+		if(msg.indexOf('<-msg->') > -1)
 		{
-			alert(1);
-			Max_Post++;
-			var arr_2 = arr_1[i].split('<:>');
-			if(arr_2[1] != "")
+			var arr_1 = msg.split('<-msg->');
+			for(var i = 0; i < arr_1.length - 1; i++)
 			{
-				alert(2);
-				$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+				alert(1);
+				Max_Post++;
+				var arr_2 = arr_1[i].split('<:>');
+				if(arr_2[1] != "")
+				{
+					alert(2);
+					$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+				}
+				$("div[id = 'Post']").slideDown(375);
 			}
-			$("div[id = 'Post']").slideDown(375);
+			flag = false;
+			console.log(msg);
 		}
-		flag = false;
-		console.log(msg);
+		else 
+		{
+			flag = false;
+			console.log(msg);
+		}
 	};
 	
 	
@@ -454,18 +462,7 @@ $(document).ready(function()
 						chatroom_password: chatroom_password,
 						message_id: Max_Post
 					},
-					success: function(msg) 
-					{ 
-						if(msg != "")
-						{
-							msgalert(msg);
-						}
-						else 
-						{
-							flag = false;
-							console.log(msg);
-						}
-					}
+					success: msgalert(msg);
 				}); 
 			}
 		},100);
