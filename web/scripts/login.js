@@ -440,7 +440,7 @@ $(document).ready(function()
 						var arr_1 = msg.split('<-msg->');
 						for(var i = 0; i < arr_1.length - 1; i++)
 						{
-							var arr_2 = arr_1.split('<:>');
+							var arr_2 = arr_1[i].split('<:>');
 							if(arr_2[1] != "")$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
 							$("div[id = 'Post']").slideDown(375);
 						}
