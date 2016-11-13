@@ -434,7 +434,6 @@ $(document).ready(function()
 			{
 				if(msg != "")
 				{
-					$("#Post_Area").prepend(msg);
 					var arr_1 = msg.split('<-msg->');
 					for(var i = 0; i < arr_1.length - 1; i++)
 					{
@@ -449,11 +448,7 @@ $(document).ready(function()
 					console.log(msg);
 					work = false;
 				}	
-			},
-			error: function () 
-			{
-                alert("Ошибка");
-            }
+			}
 		}); 
 			
 	}
