@@ -6,7 +6,7 @@ $(document).ready(function()
 	var chatroom_password;
 	var Timer;
 	var flag = true;
-	var work = false;
+	var work = true;
 	$('#Login').click(function()
 	{			
 		$("div[id='download_autorization']").slideDown(375);
@@ -414,12 +414,11 @@ $(document).ready(function()
 			}
 		});     
 	});
-	
 	setInterval(function()
 	{
-		work = true;
 		if(work == true && flag == false)
 		{
+			work = false;
 			$.ajax
 			({
 				type: "GET",
@@ -437,7 +436,7 @@ $(document).ready(function()
 				success: function(msg)
 				{
 					$("#Post_Area").prepend('<br>' + msg);	
-					work = false;
+					work = true;
 				}
 			}); 
 		}
