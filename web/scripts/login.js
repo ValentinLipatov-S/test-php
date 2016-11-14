@@ -434,7 +434,7 @@ $(document).ready(function()
 				},
 				success: function(msg)
 				{
-					$("#Post_Area").prepend('<br>1234567890');	
+					$("#Post_Area").prepend('<br>' + msg);	
 					work = false;
 				}
 			}); 
