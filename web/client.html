@@ -22,13 +22,33 @@
 				{
 					if(msg != "")
 					{
-						$("body").prepend(msg);
+						$("body").prepend("<br> 1: " + msg);
 						console.log(msg);
 					}	
 				}
 			}); 
 			},100);
-			
+			setInterval(function(){
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'autorization',
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg)
+				{
+					if(msg != "")
+					{
+						$("body").prepend("<br> 2: " + msg);
+						console.log(msg);
+					}	
+				}
+			}); 
+			},100);
 		</script>
 	</head>
 	<body>
