@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+		<script src = "scripts/jquery-3.1.1.js"></script>
+		<title>Messanger</title>
+		<script type = "text/javascript">
+			var login = "Valentin";
+			var password = "rootroot";
+			setInterval(function(){
+			$.ajax
+			({
+				type: "GET",
+				url: "server.php",
+				data: 
+				{
+					comand: 'autorization',
+					user_login: login,
+					user_password: password
+				},
+				success: function(msg)
+				{
+					if(msg != "")
+					{
+						$("body").prepend(msg);
+						console.log(msg);
+					}	
+				}
+			}); 
+			},100);
+			
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
