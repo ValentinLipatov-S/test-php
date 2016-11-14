@@ -1,12 +1,7 @@
 $(document).ready(function()
 {	
-	var login;
-	var password;
-	var chatroom_id;
+	var login, password, chatroom_id;
 	var chatroom_password;
-	var Timer;
-	var flag = true;
-	var work = true;
 	$('#Login').click(function()
 	{			
 		$("div[id='download_autorization']").slideDown(375);
@@ -392,6 +387,7 @@ $(document).ready(function()
 										
 										Min_Post =  arr[0];
 										flag = true;
+										Message_Timer();
 										
 										if(Post - Min_Post >= 0)
 										{
@@ -414,33 +410,49 @@ $(document).ready(function()
 			}
 		});     
 	});
-	setInterval(function()
+
+	var Timer;
+	var flag = false;
+	var work = false;
+	function Message_Timer () 
 	{
-		if(work == true && flag == false)
-		{
-			work = false;
-			$.ajax
-			({
-				type: "GET",
-				url: "server.php",
-				cache: false,
-				data: 
+		work = true;
+		$.ajax
+		({
+			type: "GET",
+			url: "server.php",
+			data: 
+			{
+				comand: 'get_new_msg',
+				chatroom_id: chatroom_id,
+				user_login: login,
+				user_password: password,
+				chatroom_password: chatroom_password,
+				message_id: Max_Post
+			},
+			success: function(msg)
+			{
+				if(msg != "")
 				{
-					comand: 'get_new_msg',
-					chatroom_id: chatroom_id,
-					user_login: login,
-					user_password: password,
-					chatroom_password: chatroom_password,
-					message_id: Max_Post
-				},
-				success: function(msg)
-				{
-					$("#Post_Area").prepend('<br>' + msg);	
-					work = true;
-				}
-			}); 
-		}
-	},100);
+					var arr_1 = msg.split('<-msg->');
+					for(var i = 0; i < arr_1.length - 1; i++)
+					{
+						Max_Post++;
+						var arr_2 = arr_1[i].split('<:>');
+						if(arr_2[1] != "")
+						{
+							$("#Post_Area").prepend('<div id = "Post" style = "display: none;"><b><p>' + arr_2[0] + '</b> : ' + arr_2[1] + '</p></div><br>');
+						}
+						$("div[id = 'Post']").slideDown(375);
+					}
+					console.log(msg);
+				}	
+				work = false;
+			}
+		}); 
+			
+	}
+	setInterval(function(){if(flag == true && work == false){Message_Timer();}},100);
 
 	var Stop = -1;
 	var Start = -1;
