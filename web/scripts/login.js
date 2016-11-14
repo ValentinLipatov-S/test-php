@@ -1,7 +1,12 @@
 $(document).ready(function()
 {	
-	var login, password, chatroom_id;
+	var login;
+	var password;
+	var chatroom_id;
 	var chatroom_password;
+	var Timer;
+	var flag = true;
+	var work = false;
 	$('#Login').click(function()
 	{			
 		$("div[id='download_autorization']").slideDown(375);
@@ -409,20 +414,17 @@ $(document).ready(function()
 			}
 		});     
 	});
-
-	var Timer;
-	var flag = false;
-	var work = false;
 	
 	setInterval(function()
 	{
-		if(work == false && flag == true)
+		work = true;
+		if(work == true && flag == false)
 		{
-			work = true;
 			$.ajax
 			({
 				type: "GET",
 				url: "server.php",
+				cache: false,
 				data: 
 				{
 					comand: 'get_new_msg',
